@@ -2,13 +2,13 @@ import type { NextPage } from "next";
 
 import { Grid } from "@mui/material";
 
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 
 import NavBar from "../NavBar";
 import HomePageItem from "../HomePageItem";
 
 const Offset = styled("div")(({ theme }) => ({
-  margin: 64,
+  margin: 56,
 }));
 
 const HomePage: NextPage = () => {

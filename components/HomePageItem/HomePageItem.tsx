@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { NextPage } from "next";
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 
 import { Grid } from "@mui/material";
 import {
