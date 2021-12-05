@@ -14,7 +14,6 @@ const Box = styled(MUIBox)(({ theme }) => ({
 }));
 
 const Search = styled("div")(({ theme }) => ({
-  flexGrow: 1,
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -22,13 +21,7 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginRight: theme.spacing(2),
-  marginLeft: 0,
-  //   width: "100%",
-  maxWidth: 390,
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
+  width: "auto",
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -48,9 +41,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
+    width: "40ch",
+    [theme.breakpoints.down("sm")]: {
+      width: "23ch",
     },
   },
 }));
@@ -60,8 +53,7 @@ const NavBar = () => {
     <Box>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid sm={0} md={0} lg={4} />
-          <Grid container lg={4} sm={10} justifyContent="center">
+          <Grid container xs={10} justifyContent="start">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -72,7 +64,7 @@ const NavBar = () => {
               />
             </Search>
           </Grid>
-          <Grid container xs={4} justifyContent="end">
+          <Grid container xs={2} justifyContent="end">
             <Button color="inherit">Login</Button>
           </Grid>
         </Toolbar>
