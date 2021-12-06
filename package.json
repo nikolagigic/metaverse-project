@@ -12,6 +12,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.2",
+    "@mui/styles": "^5.2.2",
     "@openzeppelin/contracts": "^4.4.0",
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
@@ -26,8 +27,10 @@
   "devDependencies": {
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
+    "@types/three": "^0.134.0",
     "eslint": "8.4.0",
     "eslint-config-next": "12.0.6",
+    "three": "^0.135.0",
     "typescript": "4.5.2"
   }
 }

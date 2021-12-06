@@ -14,18 +14,18 @@ const Card = styled(MUICard)(({ theme }) => ({
   margin: "auto",
 }));
 
-interface HomePageItemProps {
+interface NFTItemProps {
   title?: string;
   description?: string;
-  previewImage?: ImageData;
-  videoUrl?: URL;
+  previewImageURL?: string;
+  videoURL?: string;
 }
 
-const HomePageItem: FC<HomePageItemProps> = ({
+const NFTItem: FC<NFTItemProps> = ({
   title,
   description,
-  previewImage,
-  videoUrl,
+  previewImageURL,
+  videoURL,
 }) => {
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
@@ -49,4 +49,4 @@ const HomePageItem: FC<HomePageItemProps> = ({
   );
 };
 
-export default HomePageItem;
+export default NFTItem;

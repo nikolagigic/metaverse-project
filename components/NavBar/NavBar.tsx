@@ -53,7 +53,7 @@ const NavBar = () => {
     <Box>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid container xs={10} justifyContent="start">
+          <Grid container justifyContent="start">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -64,7 +64,7 @@ const NavBar = () => {
               />
             </Search>
           </Grid>
-          <Grid container xs={2} justifyContent="end">
+          <Grid container justifyContent="end">
             <Button color="inherit">Login</Button>
           </Grid>
         </Toolbar>
