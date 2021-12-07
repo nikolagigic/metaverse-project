@@ -33,17 +33,27 @@ const Token = () => {
           mode="concurrent"
           performance={{ current: 1, min: 0.1, max: 1, debounce: 200 }}
           gl={{
-            antialias: false,
+            antialias: true,
             pixelRatio: pixelRatio,
             outputEncoding: THREE.sRGBEncoding,
           }}
         >
           <ambientLight intensity={2} />
           <Suspense fallback={null}>
-            <TokenRenderer
-              position={[0, 0, 0]}
-              modelPath={"/gltf/Y Bot - Idle.glb"}
-            />
+            <group dispose={null}>
+              <TokenRenderer
+                position={[0, 0, 0]}
+                modelPath={"/gltf/Y Bot - Idle.glb"}
+              />
+              <TokenRenderer
+                position={[2, 0, 0]}
+                modelPath={"/gltf/Y Bot - Idle.glb"}
+              />
+              <TokenRenderer
+                position={[-2, 0, 0]}
+                modelPath={"/gltf/Y Bot - Idle.glb"}
+              />
+            </group>
             <Precompile />
           </Suspense>
           <Stats />
