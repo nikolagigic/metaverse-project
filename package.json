@@ -14,14 +14,18 @@
     "@mui/material": "^5.2.2",
     "@mui/styles": "^5.2.2",
     "@openzeppelin/contracts": "^4.4.0",
+    "@react-three/drei": "^7.26.1",
+    "@react-three/fiber": "^7.0.21",
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
+    "fbx2gltf": "^0.9.7-p1",
     "hardhat": "^0.0.7",
     "hardhat-waffle": "^0.0.1-security",
     "ipfs-http-client": "^54.0.2",
     "next": "12.0.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "three": "^0.135.0",
     "web3modal": "^1.9.4"
   },
   "devDependencies": {
@@ -30,7 +34,6 @@
     "@types/three": "^0.134.0",
     "eslint": "8.4.0",
     "eslint-config-next": "12.0.6",
-    "three": "^0.135.0",
     "typescript": "4.5.2"
   }
 }
