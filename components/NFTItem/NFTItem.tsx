@@ -1,15 +1,16 @@
 import { FC } from "react";
 import { styled } from "@mui/material/styles";
 
-import { Grid } from "@mui/material";
-import {
-  Card as MUICard,
-  CardMedia,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 
-const Card = styled(MUICard)(({ theme }) => ({
+import NFTTokenWrapper from "../TokenRenderer/NFTTokenWrapper";
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  width: 300,
+  height: 300,
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
   width: 300,
   margin: "auto",
 }));
@@ -17,25 +18,16 @@ const Card = styled(MUICard)(({ theme }) => ({
 interface NFTItemProps {
   title?: string;
   description?: string;
-  previewImageURL?: string;
-  videoURL?: string;
+  modelPath?: string;
 }
 
-const NFTItem: FC<NFTItemProps> = ({
-  title,
-  description,
-  previewImageURL,
-  videoURL,
-}) => {
+const NFTItem: FC<NFTItemProps> = ({ title, description, modelPath }) => {
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
-      <Card>
-        <CardMedia
-          component="img"
-          height="200"
-          src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-          alt="green iguana"
-        />
+      <StyledCard>
+        <StyledBox>
+          <NFTTokenWrapper modelPath={modelPath} />
+        </StyledBox>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}
@@ -44,7 +36,7 @@ const NFTItem: FC<NFTItemProps> = ({
             {description}
           </Typography>
         </CardContent>
-      </Card>
+      </StyledCard>
     </Grid>
   );
 };

@@ -1,7 +1,12 @@
 import { FC, useEffect, useState, Suspense, useLayoutEffect } from "react";
 
 import { Canvas, useThree } from "@react-three/fiber";
-import { Stats } from "@react-three/drei";
+import {
+  Stats,
+  PerspectiveCamera,
+  OrbitControls,
+  PresentationControls,
+} from "@react-three/drei";
 
 import TokenRenderer from "./TokenRenderer";
 
@@ -37,12 +42,12 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({ modelPath }) => {
         pixelRatio: pixelRatio,
         outputEncoding: THREE.sRGBEncoding,
       }}
+      camera={{ position: [0, 0, 100], fov: 1.77 }}
     >
       <ambientLight intensity={2} />
       <Suspense fallback={null}>
-        <group dispose={null}>
-          <TokenRenderer position={[0, 0, 0]} modelPath={modelPath} />
-        </group>
+        <OrbitControls />
+        <TokenRenderer position={[0, -1, 0]} modelPath={modelPath} />
       </Suspense>
       <Precompile />
       <Stats />

@@ -1,7 +1,9 @@
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useMemo } from "react";
 
 import { useFrame } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
+
+import { cloneModel } from "../../utils/helpers";
 
 import * as THREE from "three";
 
@@ -19,9 +21,10 @@ const TokenRenderer: FC<TokenRendererProps> = ({ position, modelPath }) => {
   const gltfModel = useGLTF(modelPath);
   const animations = useAnimations(gltfModel.animations);
   let mixer: THREE.AnimationMixer;
+  const clone = useMemo(() => cloneModel(gltfModel.scene), [gltfModel.scene]);
 
   if (animations.clips.length) {
-    mixer = new THREE.AnimationMixer(gltfModel.scene);
+    mixer = new THREE.AnimationMixer(clone);
     animations.clips.forEach((clip) => {
       const action = mixer.clipAction(clip);
       action.play();
@@ -34,16 +37,9 @@ const TokenRenderer: FC<TokenRendererProps> = ({ position, modelPath }) => {
   });
 
   return (
-    <instancedMesh>
-      <mesh position={position}>
-        <primitive
-          ref={mesh}
-          object={gltfModel.scene}
-          scale={1}
-          dispose={null}
-        />
-      </mesh>
-    </instancedMesh>
+    <mesh ref={mesh} position={position}>
+      <primitive object={clone} scale={1} dispose={null} />
+    </mesh>
   );
 };
 

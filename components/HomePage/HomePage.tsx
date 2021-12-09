@@ -13,38 +13,21 @@ const Offset = styled("div")(({ theme }) => ({
 
 const HomePage: NextPage = () => {
   return (
+    // Max of 16 can be rendered
     <Grid container>
       <NavBar />
       <Offset />
       <Grid container spacing={4}>
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
-        <NFTItem title="Mount Fuji" description="Video Description" />
+        <NFTItem
+          title="Idle"
+          description="Y Bot Idling"
+          modelPath={"/gltf/Y Bot - Idle.glb"}
+        />
+        <NFTItem
+          title="Idle"
+          description="Y Bot Idling"
+          modelPath={"/gltf/Y Bot - Idle.glb"}
+        />
       </Grid>
     </Grid>
   );
