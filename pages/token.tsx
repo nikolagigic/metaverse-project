@@ -45,14 +45,6 @@ const Token = () => {
                 position={[0, 0, 0]}
                 modelPath={"/gltf/Y Bot - Idle.glb"}
               />
-              <TokenRenderer
-                position={[2, 0, 0]}
-                modelPath={"/gltf/Y Bot - Idle.glb"}
-              />
-              <TokenRenderer
-                position={[-2, 0, 0]}
-                modelPath={"/gltf/Y Bot - Idle.glb"}
-              />
             </group>
             <Precompile />
           </Suspense>
