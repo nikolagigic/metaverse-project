@@ -24,9 +24,82 @@ const HomePage: NextPage = () => {
           modelPath={"/gltf/Y Bot - Idle.glb"}
         />
         <NFTItem
+          title="Walking"
+          description="Y Bot Walking"
+          modelPath={"/gltf/Y Bot - Walking.glb"}
+        />
+        <NFTItem
+          title="Running"
+          description="Y Bot Running"
+          modelPath={"/gltf/Y Bot - Running.glb"}
+        />
+        <NFTItem
+          title="Sneaking"
+          description="Y Bot Sneaking"
+          modelPath={"/gltf/Y Bot - Sneaking.glb"}
+        />
+
+        <NFTItem
           title="Idle"
           description="Y Bot Idling"
           modelPath={"/gltf/Y Bot - Idle.glb"}
+        />
+        <NFTItem
+          title="Walking"
+          description="Y Bot Walking"
+          modelPath={"/gltf/Y Bot - Walking.glb"}
+        />
+        <NFTItem
+          title="Running"
+          description="Y Bot Running"
+          modelPath={"/gltf/Y Bot - Running.glb"}
+        />
+        <NFTItem
+          title="Sneaking"
+          description="Y Bot Sneaking"
+          modelPath={"/gltf/Y Bot - Sneaking.glb"}
+        />
+
+        <NFTItem
+          title="Idle"
+          description="Y Bot Idling"
+          modelPath={"/gltf/Y Bot - Idle.glb"}
+        />
+        <NFTItem
+          title="Walking"
+          description="Y Bot Walking"
+          modelPath={"/gltf/Y Bot - Walking.glb"}
+        />
+        <NFTItem
+          title="Running"
+          description="Y Bot Running"
+          modelPath={"/gltf/Y Bot - Running.glb"}
+        />
+        <NFTItem
+          title="Sneaking"
+          description="Y Bot Sneaking"
+          modelPath={"/gltf/Y Bot - Sneaking.glb"}
+        />
+
+        <NFTItem
+          title="Idle"
+          description="Y Bot Idling"
+          modelPath={"/gltf/Y Bot - Idle.glb"}
+        />
+        <NFTItem
+          title="Walking"
+          description="Y Bot Walking"
+          modelPath={"/gltf/Y Bot - Walking.glb"}
+        />
+        <NFTItem
+          title="Running"
+          description="Y Bot Running"
+          modelPath={"/gltf/Y Bot - Running.glb"}
+        />
+        <NFTItem
+          title="Sneaking"
+          description="Y Bot Sneaking"
+          modelPath={"/gltf/Y Bot - Sneaking.glb"}
         />
       </Grid>
     </Grid>

@@ -42,7 +42,7 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({ modelPath }) => {
         pixelRatio: pixelRatio,
         outputEncoding: THREE.sRGBEncoding,
       }}
-      camera={{ position: [0, 0, 100], fov: 1.77 }}
+      camera={{ position: [0, 1, 3], fov: 45, aspect: widthSize / heightSize }}
     >
       <ambientLight intensity={2} />
       <Suspense fallback={null}>
