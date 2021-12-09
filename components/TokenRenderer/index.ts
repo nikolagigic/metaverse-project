@@ -1,1 +1,1 @@
-export { default } from "./TokenRenderer";
+export { default } from "./NFTTokenWrapper";
