@@ -44,7 +44,12 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({ modelPath }) => {
       }}
       camera={{ position: [0, 1, 3], fov: 45, aspect: widthSize / heightSize }}
     >
-      <ambientLight intensity={2} />
+      <color
+        attach={"background"}
+        args={[new THREE.Color().setHex(0xbfe3dd)]}
+      />
+      <ambientLight />
+      <pointLight position={[0, 2, 2]} />
       <Suspense fallback={null}>
         <OrbitControls />
         <TokenRenderer position={[0, -1, 0]} modelPath={modelPath} />

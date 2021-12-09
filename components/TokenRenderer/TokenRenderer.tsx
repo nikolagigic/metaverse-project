@@ -23,7 +23,7 @@ const TokenRenderer: FC<TokenRendererProps> = ({ position, modelPath }) => {
   let mixer: THREE.AnimationMixer;
   const clone = useMemo(() => cloneModel(gltfModel.scene), [gltfModel.scene]);
 
-  if (animations.clips.length) {
+  if (animations?.clips.length) {
     mixer = new THREE.AnimationMixer(clone);
     animations.clips.forEach((clip) => {
       const action = mixer.clipAction(clip);
