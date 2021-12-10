@@ -1,6 +1,6 @@
 import { FC, useEffect, useState, Suspense, useLayoutEffect } from "react";
 
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, ColorProps } from "@react-three/fiber";
 import {
   Stats,
   PerspectiveCamera,
@@ -14,6 +14,7 @@ import * as THREE from "three";
 
 interface NFTTokenWrapperProps {
   modelPath: string;
+  backgroundColor?: string;
 }
 
 const Precompile: FC = (): null => {
@@ -22,7 +23,10 @@ const Precompile: FC = (): null => {
   return null;
 };
 
-const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({ modelPath }) => {
+const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
+  modelPath,
+  backgroundColor,
+}) => {
   const [pixelRatio, setPixelRatio] = useState(null);
   const [widthSize, setWidthSize] = useState(0);
   const [heightSize, setHeightSize] = useState(0);
@@ -38,21 +42,26 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({ modelPath }) => {
       mode="concurrent"
       performance={{ current: 1, min: 0.1, max: 1, debounce: 200 }}
       gl={{
+        alpha: true,
         antialias: true,
         pixelRatio: pixelRatio,
         outputEncoding: THREE.sRGBEncoding,
       }}
-      camera={{ position: [0, 1, 3], fov: 45, aspect: widthSize / heightSize }}
+      camera={{
+        position: [0, 1, 3],
+        fov: 45,
+        aspect: widthSize / heightSize,
+      }}
     >
-      <color
-        attach={"background"}
-        args={[new THREE.Color().setHex(0xbfe3dd)]}
-      />
       <ambientLight />
       <pointLight position={[0, 2, 2]} />
       <Suspense fallback={null}>
         <OrbitControls />
-        <TokenRenderer position={[0, -1, 0]} modelPath={modelPath} />
+        <TokenRenderer
+          position={[0, -1, 0]}
+          modelPath={modelPath}
+          backgroundColor={backgroundColor}
+        />
       </Suspense>
       <Precompile />
       <Stats />
