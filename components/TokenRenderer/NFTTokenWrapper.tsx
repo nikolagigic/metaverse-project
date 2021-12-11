@@ -1,12 +1,10 @@
 import { FC, useEffect, useState, Suspense, useLayoutEffect } from "react";
 
-import { Canvas, useThree, ColorProps } from "@react-three/fiber";
-import {
-  Stats,
-  PerspectiveCamera,
-  OrbitControls,
-  PresentationControls,
-} from "@react-three/drei";
+import { useRouter } from "next/router";
+
+import { Canvas, useThree } from "@react-three/fiber";
+import { Stats, OrbitControls } from "@react-three/drei";
+import { EffectComposer, Vignette } from "@react-three/postprocessing";
 
 import TokenRenderer from "./TokenRenderer";
 
@@ -16,6 +14,14 @@ interface NFTTokenWrapperProps {
   modelPath: string;
   backgroundColor?: string;
 }
+
+const Effects = () => {
+  return (
+    <EffectComposer>
+      <Vignette offset={0.25} darkness={0.5} eskil={false} />
+    </EffectComposer>
+  );
+};
 
 const Precompile: FC = (): null => {
   const { gl, scene, camera } = useThree();
@@ -31,6 +37,12 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
   const [widthSize, setWidthSize] = useState(0);
   const [heightSize, setHeightSize] = useState(0);
 
+  const location = useRouter();
+
+  const shouldRenderEffects =
+    location.pathname.startsWith("/studio") ||
+    location.pathname.startsWith("/token");
+
   useEffect(() => {
     setPixelRatio(window.devicePixelRatio);
     setWidthSize(window.innerWidth);
@@ -39,13 +51,13 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
 
   return (
     <Canvas
-      mode="concurrent"
       performance={{ current: 1, min: 0.1, max: 1, debounce: 200 }}
       gl={{
         alpha: true,
         antialias: true,
         pixelRatio: pixelRatio,
         outputEncoding: THREE.sRGBEncoding,
+        depth: true,
       }}
       camera={{
         position: [0, 1, 3],
@@ -54,7 +66,10 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
       }}
     >
       <ambientLight />
-      <pointLight position={[0, 2, 2]} />
+      <spotLight position={[5, 5, 5]} intensity={0.15} />
+      <spotLight position={[-5, 5, 5]} intensity={0.15} />
+      <spotLight position={[0, 5, 5]} intensity={0.15} />
+      {shouldRenderEffects && <Effects />}
       <Suspense fallback={null}>
         <OrbitControls />
         <TokenRenderer

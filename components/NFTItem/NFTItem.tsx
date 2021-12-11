@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { styled } from "@mui/material/styles";
 
 import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
@@ -26,7 +27,7 @@ const NFTItem: FC<NFTItemProps> = ({ title, description, modelPath }) => {
     <Grid item lg={3} md={6} sm={12} xs={12}>
       <StyledCard>
         <StyledBox>
-          <NFTTokenWrapper modelPath={modelPath} />
+          <NFTTokenWrapper modelPath={modelPath} backgroundColor={"#fcfcfc"} />
         </StyledBox>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

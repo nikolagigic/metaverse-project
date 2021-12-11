@@ -1,6 +1,6 @@
 import React, { FC, useRef, useMemo, useEffect, useState } from "react";
 
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
 import { cloneModel } from "../../utils/helpers";
@@ -30,6 +30,8 @@ const TokenRenderer: FC<TokenRendererProps> = ({
 
   const [sceneColor, setSceneColor] = useState(0x00000);
 
+  const { scene } = useThree();
+
   if (animations?.clips.length) {
     mixer = new THREE.AnimationMixer(clone);
     animations.clips.forEach((clip) => {
@@ -44,7 +46,7 @@ const TokenRenderer: FC<TokenRendererProps> = ({
 
   useFrame((state, delta) => {
     state.scene.background = new THREE.Color().setHex(sceneColor);
-    mesh.current.rotation.y += 0.01;
+    // mesh.current.rotation.y += 0.01;
     mixer?.update(delta);
   });
 

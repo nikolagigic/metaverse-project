@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 
 import type { NextPage } from "next";
 
-import { styled, Grid } from "@mui/material";
+import {
+  styled,
+  Grid,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 
 import { HexColorPicker } from "react-colorful";
@@ -30,7 +36,12 @@ const StyledHexColorPicker = styled(HexColorPicker)(({ theme }) => ({
 }));
 
 const Studio: NextPage = () => {
-  const [backgroundColor, setBackgroundColor] = useState("#e2ffff");
+  const [backgroundColor, setBackgroundColor] = useState("#eeeeee");
+  const [pointLight1, setPointLight1] = useState(true);
+  const [pointLight2, setPointLight2] = useState(true);
+  const [pointLight3, setPointLight3] = useState(true);
+
+  console.log(backgroundColor);
 
   return (
     <Grid container style={{ height: "100vh" }}>
