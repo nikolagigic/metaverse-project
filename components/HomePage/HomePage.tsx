@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 import { useEffect, useState } from "react";
 
-import { Grid, Box, CircularProgress } from "@mui/material";
+import { Grid, Box, CircularProgress, TextField } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -29,10 +29,17 @@ const HomePage: NextPage = () => {
     loadMarketNFTs(setNFTs, setLoadingState);
   }, []);
 
-  if (loadingState !== "loaded" || NFTs.length === 0)
+  if (loadingState !== "loaded")
     return (
       <Box sx={{ display: "flex" }}>
         <StyledCircularProgress color="inherit" />
+      </Box>
+    );
+
+  if (NFTs.length <= 0)
+    return (
+      <Box sx={{ display: "flex" }}>
+        <TextField variant="outlined" label="NO ITEMS" />
       </Box>
     );
 
@@ -42,89 +49,17 @@ const HomePage: NextPage = () => {
       <NavBar />
       <Offset />
       <Grid container spacing={4}>
-        <NFTItem
-          title="Idle"
-          description="Y Bot Idling"
-          modelPath={"/gltf/Y Bot - Idle.glb"}
-        />
-        <NFTItem
-          title="Walking"
-          description="Y Bot Walking"
-          modelPath={"/gltf/Y Bot - Walking.glb"}
-        />
-        <NFTItem
-          title="Running"
-          description="Y Bot Running"
-          modelPath={"/gltf/Y Bot - Running.glb"}
-        />
-        <NFTItem
-          title="Sneaking"
-          description="Y Bot Sneaking"
-          modelPath={"/gltf/Y Bot - Sneaking.glb"}
-        />
-
-        <NFTItem
-          title="Idle"
-          description="Y Bot Idling"
-          modelPath={"/gltf/Y Bot - Idle.glb"}
-        />
-        <NFTItem
-          title="Walking"
-          description="Y Bot Walking"
-          modelPath={"/gltf/Y Bot - Walking.glb"}
-        />
-        <NFTItem
-          title="Running"
-          description="Y Bot Running"
-          modelPath={"/gltf/Y Bot - Running.glb"}
-        />
-        <NFTItem
-          title="Sneaking"
-          description="Y Bot Sneaking"
-          modelPath={"/gltf/Y Bot - Sneaking.glb"}
-        />
-
-        <NFTItem
-          title="Idle"
-          description="Y Bot Idling"
-          modelPath={"/gltf/Y Bot - Idle.glb"}
-        />
-        <NFTItem
-          title="Walking"
-          description="Y Bot Walking"
-          modelPath={"/gltf/Y Bot - Walking.glb"}
-        />
-        <NFTItem
-          title="Running"
-          description="Y Bot Running"
-          modelPath={"/gltf/Y Bot - Running.glb"}
-        />
-        <NFTItem
-          title="Sneaking"
-          description="Y Bot Sneaking"
-          modelPath={"/gltf/Y Bot - Sneaking.glb"}
-        />
-
-        <NFTItem
-          title="Idle"
-          description="Y Bot Idling"
-          modelPath={"/gltf/Y Bot - Idle.glb"}
-        />
-        <NFTItem
-          title="Walking"
-          description="Y Bot Walking"
-          modelPath={"/gltf/Y Bot - Walking.glb"}
-        />
-        <NFTItem
-          title="Running"
-          description="Y Bot Running"
-          modelPath={"/gltf/Y Bot - Running.glb"}
-        />
-        <NFTItem
-          title="Sneaking"
-          description="Y Bot Sneaking"
-          modelPath={"/gltf/Y Bot - Sneaking.glb"}
-        />
+        {NFTs.map((NFT, i) => {
+          return (
+            <NFTItem
+              key={i}
+              title={NFT.name}
+              description={NFT.description}
+              modelPath={NFT.model}
+              backgroundColor={NFT.backgroundColor}
+            />
+          );
+        })}
       </Grid>
     </Grid>
   );

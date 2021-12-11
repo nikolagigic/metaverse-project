@@ -20,14 +20,23 @@ interface NFTItemProps {
   title?: string;
   description?: string;
   modelPath?: string;
+  backgroundColor?: string;
 }
 
-const NFTItem: FC<NFTItemProps> = ({ title, description, modelPath }) => {
+const NFTItem: FC<NFTItemProps> = ({
+  title,
+  description,
+  modelPath,
+  backgroundColor,
+}) => {
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
       <StyledCard>
         <StyledBox>
-          <NFTTokenWrapper modelPath={modelPath} backgroundColor={"#fcfcfc"} />
+          <NFTTokenWrapper
+            modelPath={modelPath}
+            backgroundColor={backgroundColor}
+          />
         </StyledBox>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
