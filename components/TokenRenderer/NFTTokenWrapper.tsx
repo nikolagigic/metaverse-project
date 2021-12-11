@@ -73,7 +73,7 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
       <Suspense fallback={null}>
         <OrbitControls />
         <TokenRenderer
-          position={[0, -1, 0]}
+          position={[0, -1, -0.25]}
           modelPath={modelPath}
           backgroundColor={backgroundColor}
         />
