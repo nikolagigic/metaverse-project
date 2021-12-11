@@ -36,10 +36,7 @@ const StyledHexColorPicker = styled(HexColorPicker)(({ theme }) => ({
 }));
 
 const Studio: NextPage = () => {
-  const [backgroundColor, setBackgroundColor] = useState("#eeeeee");
-  const [pointLight1, setPointLight1] = useState(true);
-  const [pointLight2, setPointLight2] = useState(true);
-  const [pointLight3, setPointLight3] = useState(true);
+  const [backgroundColor, setBackgroundColor] = useState("#131010");
 
   console.log(backgroundColor);
 
