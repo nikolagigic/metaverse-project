@@ -42,7 +42,6 @@ const HomePage: NextPage = () => {
       <NavBar />
       <Offset />
       <Grid container spacing={4}>
-        {console.log(NFTs)}
         <NFTItem
           title="Idle"
           description="Y Bot Idling"

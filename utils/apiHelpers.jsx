@@ -53,8 +53,6 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
     })
   );
 
-  console.log(">>> items: ", items);
-
   setNFTs(items);
   setLoadingState("loaded");
 };
@@ -167,7 +165,6 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
 
 export const createNFT = async (url, addedPrice) => {
   // before: createSale
-  console.log(">>> create called");
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -202,11 +199,8 @@ export const createNFTObject = async (
 ) => {
   // before: createMarket
 
-  console.log(">>> this is called");
   if (!name || !description || !addedPrice || !modelURL || !backgroundColor)
-    console.log(
-      `${name} ${description} ${addedPrice} ${modelURL} ${backgroundColor}`
-    );
+    return;
 
   const data = JSON.stringify({
     name,
