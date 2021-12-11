@@ -1,14 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import type { NextPage } from "next";
 
-import {
-  styled,
-  Grid,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
+import { styled, Grid } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 
 import { HexColorPicker } from "react-colorful";

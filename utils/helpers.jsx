@@ -1,5 +1,3 @@
-import * as THREE from "three";
-
 const parallelTraverse = (a, b, callback) => {
   callback(a, b);
 
