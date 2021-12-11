@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
@@ -7,7 +9,8 @@ import { nftaddress, nftmarketaddress } from "../config";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 
-export const loadMarketNFTs = async (setNfts, setLoadingState) => {
+export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
+  // before: async (setNfts, setLoadingState)
   // const provider = new ethers.providers.JsonRpcProvider(
   //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   // );
@@ -44,7 +47,8 @@ export const loadMarketNFTs = async (setNfts, setLoadingState) => {
       return item;
     })
   );
-  setNfts(items);
+
+  setNFTs(items);
   setLoadingState("loaded");
 };
 
@@ -154,7 +158,8 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
   setLoadingState("loaded");
 };
 
-export const createSale = async (url) => {
+export const createNFT = async (url, addedPrice) => {
+  // before: createSale
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -168,7 +173,7 @@ export const createSale = async (url) => {
   let value = event.args[2];
   let tokenId = value.toNumber();
 
-  const price = ethers.utils.parseUnits(formInput.price, "ether");
+  const price = ethers.utils.parseUnits(addedPrice, "ether");
 
   contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
   let listingPrice = await contract.getListingPrice();
@@ -181,21 +186,25 @@ export const createSale = async (url) => {
   router.push("/");
 };
 
-export const createMarket = async () => {
-  const { name, description, price } = formInput;
-  if (!name || !description || !price || !modelUrl) return;
+export const createNFTObject = async (
+  name,
+  description,
+  addedPrice,
+  modelURL
+) => {
+  // before: createMarket
+  if (!name || !description || !addedPrice || !modelURL) return;
 
   const data = JSON.stringify({
     name,
     description,
-    model: modelUrl,
-    previewImage: imageUrl,
+    model: modelURL,
   });
 
   try {
     const added = await client.add(data);
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    createSale(url);
+    createSale(url, addedPrice);
   } catch (error) {
     console.error("Error uploading file: ", error);
   }

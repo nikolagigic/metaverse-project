@@ -1,17 +1,41 @@
 import type { NextPage } from "next";
 
-import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { Grid, Box, CircularProgress } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
 import NavBar from "../NavBar";
 import NFTItem from "../NFTItem";
 
+import { loadMarketNFTs } from "../../utils/apiHelpers";
+
 const Offset = styled("div")(({ theme }) => ({
   margin: 56,
 }));
 
+const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
+  position: "relative",
+  top: "50vh",
+  margin: "auto",
+}));
+
 const HomePage: NextPage = () => {
+  const [NFTs, setNFTs] = useState();
+  const [loadingState, setLoadingState] = useState();
+
+  useEffect(() => {
+    loadMarketNFTs(setNFTs, setLoadingState);
+  }, []);
+
+  if (loadingState !== "loaded")
+    return (
+      <Box sx={{ display: "flex" }}>
+        <StyledCircularProgress color="inherit" />
+      </Box>
+    );
+
   return (
     // Max of 16 can be rendered
     <Grid container>
