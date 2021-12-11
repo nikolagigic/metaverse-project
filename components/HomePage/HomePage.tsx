@@ -22,14 +22,14 @@ const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
 }));
 
 const HomePage: NextPage = () => {
-  const [NFTs, setNFTs] = useState();
+  const [NFTs, setNFTs] = useState([]);
   const [loadingState, setLoadingState] = useState();
 
   useEffect(() => {
     loadMarketNFTs(setNFTs, setLoadingState);
   }, []);
 
-  if (loadingState !== "loaded")
+  if (loadingState !== "loaded" || NFTs.length === 0)
     return (
       <Box sx={{ display: "flex" }}>
         <StyledCircularProgress color="inherit" />
@@ -42,6 +42,7 @@ const HomePage: NextPage = () => {
       <NavBar />
       <Offset />
       <Grid container spacing={4}>
+        {console.log(NFTs)}
         <NFTItem
           title="Idle"
           description="Y Bot Idling"

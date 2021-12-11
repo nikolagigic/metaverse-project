@@ -1,13 +1,18 @@
 import { useState } from "react";
 
+import { useRouter } from "next/router";
+
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
+import { create as ipfsHttpClient } from "ipfs-http-client";
 
 import { nftaddress, nftmarketaddress } from "../config";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
   // before: async (setNfts, setLoadingState)
@@ -40,13 +45,15 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
         owner: i.owner,
         creator: i.creator,
         model: meta.data.model,
-        previewImage: meta.data.previewImage,
         name: meta.data.name,
         description: meta.data.description,
+        backgroundColor: meta.data.backgroundColor,
       };
       return item;
     })
   );
+
+  console.log(">>> items: ", items);
 
   setNFTs(items);
   setLoadingState("loaded");
@@ -84,7 +91,7 @@ export const loadCreatedNFTs = async (setNFTs, setSold, setLoadingState) => {
         name: meta.data.name,
         description: meta.data.description,
         model: meta.data.model,
-        previewImage: meta.data.previewImage,
+        backgroundColor: meta.data.backgroundColor,
       };
       return item;
     })
@@ -108,7 +115,7 @@ export const loadCreatedNFTs = async (setNFTs, setSold, setLoadingState) => {
         name: meta.data.name,
         description: meta.data.description,
         model: meta.data.model,
-        previewImage: meta.data.previewImage,
+        backgroundColor: meta.data.backgroundColor,
       };
       return item;
     })
@@ -147,7 +154,7 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
         seller: i.seller,
         owner: i.owner,
         model: meta.data.model,
-        previewImage: meta.data.previewImage,
+        backgroundColor: meta.data.backgroundColor,
         name: meta.data.name,
         description: meta.data.description,
       };
@@ -160,6 +167,7 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
 
 export const createNFT = async (url, addedPrice) => {
   // before: createSale
+  console.log(">>> create called");
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -183,28 +191,34 @@ export const createNFT = async (url, addedPrice) => {
     value: listingPrice,
   });
   await transaction.wait();
-  router.push("/");
 };
 
 export const createNFTObject = async (
   name,
   description,
   addedPrice,
-  modelURL
+  modelURL,
+  backgroundColor
 ) => {
   // before: createMarket
-  if (!name || !description || !addedPrice || !modelURL) return;
+
+  console.log(">>> this is called");
+  if (!name || !description || !addedPrice || !modelURL || !backgroundColor)
+    console.log(
+      `${name} ${description} ${addedPrice} ${modelURL} ${backgroundColor}`
+    );
 
   const data = JSON.stringify({
     name,
     description,
     model: modelURL,
+    backgroundColor: backgroundColor,
   });
 
   try {
     const added = await client.add(data);
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    createSale(url, addedPrice);
+    createNFT(url, addedPrice);
   } catch (error) {
     console.error("Error uploading file: ", error);
   }
