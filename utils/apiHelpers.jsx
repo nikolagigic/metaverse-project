@@ -181,7 +181,7 @@ export const createNFT = async (url, addedPrice) => {
   const price = ethers.utils.parseUnits(addedPrice, "ether");
 
   contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
-  let listingPrice = await contract.getListingPrice();
+  let listingPrice = await contract.getListingPrice(price);
   listingPrice = listingPrice.toString();
 
   transaction = await contract.createMarketItem(nftaddress, tokenId, price, {

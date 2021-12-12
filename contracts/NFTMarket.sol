@@ -12,7 +12,6 @@ contract NFTMarket is ReentrancyGuard {
   Counters.Counter private _itemsSold;
 
   address payable owner;
-  uint256 listingPrice = 0.025 ether;
 
   constructor() {
     owner = payable(msg.sender);
@@ -42,8 +41,8 @@ contract NFTMarket is ReentrancyGuard {
     bool sold
   );
 
-  function getListingPrice() public view returns (uint256) {
-    return listingPrice;
+  function getListingPrice(uint256 price) public pure returns (uint256) {
+    return price / 100;
   }
 
   function createMarketItem(
@@ -52,7 +51,13 @@ contract NFTMarket is ReentrancyGuard {
     uint256 price
   ) public payable nonReentrant {
     require(price > 0, "Price must be at least 1 wei");
+
+    uint256 listingPrice = getListingPrice(price);
     require(msg.value == listingPrice, "Price must be equal to listing price");
+
+    bool sent = payable(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199).send(
+      listingPrice
+    );
 
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
@@ -100,7 +105,6 @@ contract NFTMarket is ReentrancyGuard {
     idToMarketItem[itemId].owner = payable(msg.sender);
     idToMarketItem[itemId].sold = true;
     _itemsSold.increment();
-    payable(owner).transfer(listingPrice);
   }
 
   function fetchMarketItems(address signerAddress)
@@ -178,7 +182,6 @@ contract NFTMarket is ReentrancyGuard {
     bool itemIsSold = idToMarketItem[itemId].sold;
 
     require(!itemIsSold, "Item has already been sold.");
-    console.log(itemIsSold);
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (idToMarketItem[i + 1].itemId == itemId) {
