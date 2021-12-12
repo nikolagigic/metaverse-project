@@ -235,7 +235,12 @@ export const buyNft = async (nft) => {
   await transaction.wait();
 };
 
-export const getNFT = async (itemID, setNFT, setLoadingState) => {
+export const getNFT = async (
+  itemID,
+  setNFT,
+  setLoadingState,
+  setItemIsSold
+) => {
   // const provider = new ethers.providers.JsonRpcProvider(
   //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   // );
@@ -269,7 +274,9 @@ export const getNFT = async (itemID, setNFT, setLoadingState) => {
 
     setNFT(item);
     setLoadingState("loaded");
+    setItemIsSold(false);
   } catch (e) {
     if (!e.message.startsWith("invalid BigNumber value")) console.error(e);
+    if (e.message === "Item has already been sold.") setItemIsSold(true);
   }
 };

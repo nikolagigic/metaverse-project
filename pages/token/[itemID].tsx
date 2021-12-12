@@ -6,18 +6,22 @@ import { useRouter } from "next/router";
 import { Grid, Button, Typography, CircularProgress } from "@mui/material";
 
 import NFTTokenWrapper from "../../components/TokenRenderer/NFTTokenWrapper";
-import { StyledCircularProgressComponent } from "../../components/styled";
+import {
+  StyledCircularProgressComponent,
+  StyledNoItemsComponent,
+} from "../../components/styled";
 
 import { getNFT, buyNft } from "../../utils/apiHelpers";
 
 const Token: NextPage = () => {
   const [NFT, setNFT] = useState<any>();
   const [loadingState, setLoadingState] = useState();
+  const [itemIsSold, setItemIsSold] = useState(false);
 
   const { itemID } = useRouter().query;
 
   useEffect(() => {
-    getNFT(itemID, setNFT, setLoadingState);
+    getNFT(itemID, setNFT, setLoadingState, setItemIsSold);
   }, [itemID]);
 
   return (
@@ -44,6 +48,8 @@ const Token: NextPage = () => {
             </Button>
           </Grid>
         </>
+      ) : itemIsSold ? (
+        <StyledNoItemsComponent />
       ) : (
         <StyledCircularProgressComponent />
       )}

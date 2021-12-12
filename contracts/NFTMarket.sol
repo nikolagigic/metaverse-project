@@ -175,8 +175,10 @@ contract NFTMarket is ReentrancyGuard {
 
   function fetchNFT(uint256 itemId) public view returns (MarketItem memory) {
     uint256 totalItemCount = _itemIds.current();
+    bool itemIsSold = idToMarketItem[itemId].sold;
 
-    console.log(itemId);
+    require(!itemIsSold, "Item has already been sold.");
+    console.log(itemIsSold);
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (idToMarketItem[i + 1].itemId == itemId) {
