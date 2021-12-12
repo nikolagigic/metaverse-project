@@ -42,7 +42,7 @@ const NFTItem: FC<NFTItemProps> = ({
 
   const router = useRouter();
 
-  const handleClickOnTitle = () => {
+  const handleClickOnTitleOrDescription = () => {
     router.push(`/token/${itemID}`);
   };
 
@@ -58,13 +58,19 @@ const NFTItem: FC<NFTItemProps> = ({
         <CardContent>
           <Typography
             gutterBottom
+            style={{ cursor: "pointer" }}
             variant="h5"
             component="div"
-            onClick={handleClickOnTitle}
+            onClick={handleClickOnTitleOrDescription}
           >
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            style={{ cursor: "pointer" }}
+            variant="body2"
+            color="text.secondary"
+            onClick={handleClickOnTitleOrDescription}
+          >
             {formattedDescription}
           </Typography>
         </CardContent>
