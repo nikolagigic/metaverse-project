@@ -236,3 +236,42 @@ export const buyNft = async (nft) => {
 
   loadMarketNFTs(setNfts, setLoadingState);
 };
+
+export const getNFT = async (itemID, setNFT, setLoadingState) => {
+  // const provider = new ethers.providers.JsonRpcProvider(
+  //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+  // );
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
+  const marketContract = new ethers.Contract(
+    nftmarketaddress,
+    Market.abi,
+    provider
+  );
+
+  try {
+    const fetchNft = await marketContract.fetchNFT(itemID);
+    const tokenUri = await tokenContract.tokenURI(fetchNft.tokenId);
+    const meta = await axios.get(tokenUri);
+    let price = ethers.utils.formatUnits(fetchNft.price.toString(), "ether");
+    let item = {
+      price,
+      tokenId: fetchNft.tokenId.toNumber(),
+      itemID: itemID,
+      seller: fetchNft.seller,
+      owner: fetchNft.owner,
+      creator: fetchNft.creator,
+      model: meta.data.model,
+      name: meta.data.name,
+      description: meta.data.description,
+      backgroundColor: meta.data.backgroundColor,
+    };
+
+    setNFT(item);
+    setLoadingState("loaded");
+  } catch (e) {
+    if (!e.message.startsWith("invalid BigNumber value")) console.error(e);
+  }
+};

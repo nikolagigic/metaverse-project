@@ -53,6 +53,7 @@ const HomePage: NextPage = () => {
           return (
             <NFTItem
               key={i}
+              itemID={NFT.itemId}
               title={NFT.name}
               description={NFT.description}
               modelPath={NFT.model}

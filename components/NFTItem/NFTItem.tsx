@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { useRouter } from "next/router";
+
 import { styled } from "@mui/material/styles";
 
 import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
@@ -19,6 +21,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 interface NFTItemProps {
+  itemID: number;
   title?: string;
   description?: string;
   modelPath?: string;
@@ -26,6 +29,7 @@ interface NFTItemProps {
 }
 
 const NFTItem: FC<NFTItemProps> = ({
+  itemID,
   title,
   description,
   modelPath,
@@ -35,6 +39,12 @@ const NFTItem: FC<NFTItemProps> = ({
     description.length > descriptionLength
       ? `${description.slice(0, descriptionLength + 1)}...`
       : description;
+
+  const router = useRouter();
+
+  const handleClickOnTitle = () => {
+    router.push(`/token/${itemID}`);
+  };
 
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
@@ -46,7 +56,12 @@ const NFTItem: FC<NFTItemProps> = ({
           />
         </StyledBox>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            onClick={handleClickOnTitle}
+          >
             {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">

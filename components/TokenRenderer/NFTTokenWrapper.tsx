@@ -13,6 +13,9 @@ import * as THREE from "three";
 interface NFTTokenWrapperProps {
   modelPath: string;
   backgroundColor?: string;
+  name?: string;
+  description?: string;
+  addedPrice?: string;
 }
 
 const Effects = () => {
