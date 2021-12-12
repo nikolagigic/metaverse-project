@@ -5,17 +5,10 @@ import { useRouter } from "next/router";
 
 import { Grid, Button, Typography, CircularProgress } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
-
 import NFTTokenWrapper from "../../components/TokenRenderer/NFTTokenWrapper";
+import { StyledCircularProgressComponent } from "../../components/styled";
 
 import { getNFT, buyNft } from "../../utils/apiHelpers";
-
-const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
-  position: "relative",
-  top: "50vh",
-  margin: "auto",
-}));
 
 const Token: NextPage = () => {
   const [NFT, setNFT] = useState<any>();
@@ -29,7 +22,7 @@ const Token: NextPage = () => {
 
   return (
     <Grid container style={{ height: "100vh" }}>
-      {NFT && (
+      {NFT ? (
         <>
           <Grid item xs={10}>
             <NFTTokenWrapper
@@ -51,6 +44,8 @@ const Token: NextPage = () => {
             </Button>
           </Grid>
         </>
+      ) : (
+        <StyledCircularProgressComponent />
       )}
     </Grid>
   );

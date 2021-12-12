@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 import { useEffect, useState } from "react";
 
-import { Grid, Box, CircularProgress, TextField } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -10,15 +10,13 @@ import NavBar from "../NavBar";
 import NFTItem from "../NFTItem";
 
 import { loadMarketNFTs } from "../../utils/apiHelpers";
+import {
+  StyledCircularProgressComponent,
+  StyledNoItemsComponent,
+} from "../styled";
 
 const Offset = styled("div")(({ theme }) => ({
   margin: 56,
-}));
-
-const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
-  position: "relative",
-  top: "50vh",
-  margin: "auto",
 }));
 
 const HomePage: NextPage = () => {
@@ -32,14 +30,7 @@ const HomePage: NextPage = () => {
   if (loadingState !== "loaded")
     return (
       <Box sx={{ display: "flex" }}>
-        <StyledCircularProgress color="inherit" />
-      </Box>
-    );
-
-  if (NFTs.length <= 0)
-    return (
-      <Box sx={{ display: "flex" }}>
-        <TextField variant="outlined" label="NO ITEMS" />
+        <StyledCircularProgressComponent />
       </Box>
     );
 
@@ -49,18 +40,22 @@ const HomePage: NextPage = () => {
       <NavBar />
       <Offset />
       <Grid container spacing={4}>
-        {NFTs.map((NFT, i) => {
-          return (
-            <NFTItem
-              key={i}
-              itemID={NFT.itemId}
-              title={NFT.name}
-              description={NFT.description}
-              modelPath={NFT.model}
-              backgroundColor={NFT.backgroundColor}
-            />
-          );
-        })}
+        {NFTs.length <= 0 ? (
+          <StyledNoItemsComponent />
+        ) : (
+          NFTs.map((NFT, i) => {
+            return (
+              <NFTItem
+                key={i}
+                itemID={NFT.itemId}
+                title={NFT.name}
+                description={NFT.description}
+                modelPath={NFT.model}
+                backgroundColor={NFT.backgroundColor}
+              />
+            );
+          })
+        )}
       </Grid>
     </Grid>
   );
