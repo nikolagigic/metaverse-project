@@ -12,6 +12,8 @@ contract NFTMarket is ReentrancyGuard {
   Counters.Counter private _itemsSold;
 
   address payable owner;
+  address payable feeAccountAddress =
+    payable(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199);
 
   constructor() {
     owner = payable(msg.sender);
@@ -55,9 +57,8 @@ contract NFTMarket is ReentrancyGuard {
     uint256 listingPrice = getListingPrice(price);
     require(msg.value == listingPrice, "Price must be equal to listing price");
 
-    bool sent = payable(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199).send(
-      listingPrice
-    );
+    bool sent = payable(feeAccountAddress).send(listingPrice);
+    require(sent, "Failed to send Ether");
 
     _itemIds.increment();
     uint256 itemId = _itemIds.current();
