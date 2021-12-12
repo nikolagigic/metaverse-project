@@ -1,6 +1,23 @@
-import { CircularProgress } from "@mui/material";
+import { FC } from "react";
+
+import { CircularProgress, Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
+
+import NavBar from "./NavBar";
+
+const Offset = styled("div")(({ theme }) => ({
+  marginBottom: 56,
+}));
+
+export const StyledNavBarComponent = () => {
+  return (
+    <>
+      <NavBar />
+      <Offset />
+    </>
+  );
+};
 
 const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
   position: "relative",
@@ -28,3 +45,33 @@ export const StyledNoItemsComponent = () => (
     <span>NO ITEMS</span>
   </StyledNoItems>
 );
+
+const StyledTypographyLabel = styled(Typography)(({ theme }) => ({
+  paddingLeft: 5,
+  paddingRight: 5,
+  marginBottom: 10,
+  borderBottom: "solid 1px black",
+}));
+
+const StyledTypographyText = styled(Typography)(({ theme }) => ({
+  paddingLeft: 10,
+  paddingRight: 10,
+  marginBottom: 20,
+  borderBottom: "solid 1px black",
+}));
+
+interface StyledNFTPropertiesComponentProps {
+  label: string;
+  property: string;
+}
+
+export const StyledNFTPropertiesComponent: FC<
+  StyledNFTPropertiesComponentProps
+> = ({ label, property }) => {
+  return (
+    <>
+      <StyledTypographyLabel>{label}</StyledTypographyLabel>
+      <StyledTypographyText>{property}</StyledTypographyText>
+    </>
+  );
+};

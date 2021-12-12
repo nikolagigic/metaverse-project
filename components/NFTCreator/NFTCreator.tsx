@@ -37,7 +37,7 @@ const StyledHexColorPicker = styled(HexColorPicker)(({ theme }) => ({
 const StyledInput = styled(Grid)(({ theme }) => ({
   backgroundColor: "black",
   color: "white",
-  height: "100vh",
+  height: "calc(100vh - 56px)",
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -72,7 +72,7 @@ const NFTCreator = () => {
   };
 
   return (
-    <Grid container style={{ height: "100vh" }}>
+    <Grid container style={{ height: "calc(100vh - 56px)" }}>
       <Grid item xs={10}>
         {modelUrl ? (
           <NFTTokenWrapper

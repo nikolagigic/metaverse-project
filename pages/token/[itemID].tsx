@@ -9,6 +9,7 @@ import NFTTokenWrapper from "../../components/TokenRenderer/NFTTokenWrapper";
 import {
   StyledCircularProgressComponent,
   StyledNoItemsComponent,
+  StyledNFTPropertiesComponent,
 } from "../../components/styled";
 
 import { getNFT, buyNft } from "../../utils/apiHelpers";
@@ -25,7 +26,7 @@ const Token: NextPage = () => {
   }, [itemID]);
 
   return (
-    <Grid container style={{ height: "100vh" }}>
+    <Grid container style={{ height: "calc(100vh - 56px)" }}>
       {NFT ? (
         <>
           <Grid item xs={10}>
@@ -34,10 +35,15 @@ const Token: NextPage = () => {
               backgroundColor={NFT.backgroundColor}
             />
           </Grid>
-          <Grid item xs={2} textAlign={"center"}>
-            <Typography gutterBottom>{NFT.name}</Typography>
-            <Typography gutterBottom>{NFT.description}</Typography>
-            <Typography gutterBottom>{NFT.price}</Typography>
+          <Grid item xs={2} textAlign={"center"} style={{ paddingTop: 56 }}>
+            <Grid item>
+              <StyledNFTPropertiesComponent label="Title" property={NFT.name} />
+            </Grid>
+            <StyledNFTPropertiesComponent
+              label="Description"
+              property={NFT.description}
+            />
+            <StyledNFTPropertiesComponent label="Price" property={NFT.price} />
             <Button
               variant="contained"
               onClick={() => {

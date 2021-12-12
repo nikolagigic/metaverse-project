@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 
 import { Grid, Box } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
-
-import NavBar from "../NavBar";
 import NFTItem from "../NFTItem";
 
 import { loadMarketNFTs } from "../../utils/apiHelpers";
@@ -14,10 +11,6 @@ import {
   StyledCircularProgressComponent,
   StyledNoItemsComponent,
 } from "../styled";
-
-const Offset = styled("div")(({ theme }) => ({
-  margin: 56,
-}));
 
 const HomePage: NextPage = () => {
   const [NFTs, setNFTs] = useState([]);
@@ -36,9 +29,7 @@ const HomePage: NextPage = () => {
 
   return (
     // Max of 16 can be rendered
-    <Grid container>
-      <NavBar />
-      <Offset />
+    <Grid container style={{ paddingTop: "56px" }}>
       <Grid container spacing={4}>
         {NFTs.length <= 0 ? (
           <StyledNoItemsComponent />
