@@ -233,8 +233,6 @@ export const buyNft = async (nft) => {
   });
 
   await transaction.wait();
-
-  loadMarketNFTs(setNfts, setLoadingState);
 };
 
 export const getNFT = async (itemID, setNFT, setLoadingState) => {
