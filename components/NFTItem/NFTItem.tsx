@@ -4,6 +4,8 @@ import { styled } from "@mui/material/styles";
 
 import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 
+import { descriptionLength } from "./constants";
+
 import NFTTokenWrapper from "../TokenRenderer/NFTTokenWrapper";
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -29,6 +31,11 @@ const NFTItem: FC<NFTItemProps> = ({
   modelPath,
   backgroundColor,
 }) => {
+  const formattedDescription =
+    description.length > descriptionLength
+      ? `${description.slice(0, descriptionLength + 1)}...`
+      : description;
+
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
       <StyledCard>
@@ -43,7 +50,7 @@ const NFTItem: FC<NFTItemProps> = ({
             {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {description}
+            {formattedDescription}
           </Typography>
         </CardContent>
       </StyledCard>
