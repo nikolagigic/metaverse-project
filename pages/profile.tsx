@@ -47,7 +47,7 @@ const Profile: NextPage = () => {
   };
   return (
     <Grid container spacing={4} style={{ padding: "27px 54px 0 54px" }}>
-      <Grid item xs={4} display="flex" flexDirection={"column"}>
+      <Grid item xs={3} display="flex" flexDirection={"column"}>
         <Grid item>
           <Image
             width={256}
@@ -60,7 +60,7 @@ const Profile: NextPage = () => {
         <Typography>Description</Typography>
         <Typography>Wallet Address</Typography>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={9}>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
