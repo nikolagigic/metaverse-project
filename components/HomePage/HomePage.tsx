@@ -29,7 +29,7 @@ const HomePage: NextPage = () => {
 
   return (
     // Max of 16 can be rendered
-    <Grid container style={{ paddingTop: "56px" }}>
+    <Grid container style={{ paddingTop: "27px" }}>
       <Grid container spacing={4}>
         {NFTs.length <= 0 ? (
           <StyledNoItemsComponent />
