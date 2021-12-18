@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Grid, Box } from "@mui/material";
 
-import NFTItem from "../NFTItem";
+import NFTsContainer from "../NFTsContainer";
 
 import { loadMarketNFTs } from "../../utils/apiHelpers";
 import {
@@ -31,11 +31,9 @@ const HomePage: NextPage = () => {
 
   return (
     // Max of 16 can be rendered
-    <Grid container style={{ paddingTop: "27px" }}>
+    <Grid container style={{ paddingTop: "54px" }}>
       <Grid container spacing={4}>
-        {NFTs.map((NFT, i) => (
-          <NFTItem key={i} {...NFT} />
-        ))}
+        <NFTsContainer NFTs={NFTs} />
       </Grid>
     </Grid>
   );

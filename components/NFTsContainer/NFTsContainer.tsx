@@ -13,14 +13,14 @@ interface NFTProps {
 
 interface Props {
   NFTs: NFTProps[];
-  loadingState: string;
+  loadingState?: string;
 }
 
 const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
   if (NFTs.length === 0) return <StyledNoItemsComponent />;
 
   return (
-    <Grid container spacing={8}>
+    <Grid container spacing={4}>
       {NFTs.map((NFT, i) => (
         <NFTItem key={i} {...NFT} />
       ))}
