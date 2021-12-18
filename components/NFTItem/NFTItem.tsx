@@ -60,7 +60,7 @@ const NFTItem: FC<NFTItemProps> = ({
             gutterBottom
             style={{ cursor: "pointer" }}
             variant="h5"
-            component="div"
+            component={"span"}
             onClick={handleClickOnTitleOrDescription}
           >
             {title}
@@ -68,6 +68,7 @@ const NFTItem: FC<NFTItemProps> = ({
           <Typography
             style={{ cursor: "pointer" }}
             variant="body2"
+            component={"span"}
             color="text.secondary"
             onClick={handleClickOnTitleOrDescription}
           >

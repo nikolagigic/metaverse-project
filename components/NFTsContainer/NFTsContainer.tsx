@@ -17,7 +17,9 @@ interface Props {
 }
 
 const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
-  if (loadingState === "not-loaded") return <StyledNoItemsComponent />;
+  if (NFTs.length === 0) return <StyledNoItemsComponent />;
+
+  console.log(">>> NFTs: ", NFTs);
 
   return (
     <Grid container spacing={8}>

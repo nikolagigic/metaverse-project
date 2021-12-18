@@ -10,6 +10,8 @@ import NFTsContainer from "../components/NFTsContainer";
 
 import { loadCreatedNFTs, loadMyNFTs } from "../utils/apiHelpers";
 
+import { StyledNoItemsComponent } from "../components/styled";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -29,7 +31,7 @@ const TabPanel = (props: TabPanelProps) => {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -49,19 +51,18 @@ const Profile: NextPage = () => {
   const [loadingState, setLoadingState] = useState("not-loaded");
 
   useEffect(() => {
-    console.log(">>> rerendered");
-    console.log(">>> nfts: ", NFTs);
     switch (value) {
       case 0:
         loadCreatedNFTs(setNFTs, setLoadingState);
       case 1:
         loadMyNFTs(setNFTs, setLoadingState);
+      case 2:
+        setLoadingState("not-loaded");
     }
   }, [value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-    console.log(">>> newValue: ", newValue);
   };
 
   return (
@@ -75,9 +76,9 @@ const Profile: NextPage = () => {
             src={"/static/images/profile_avatar.jpg"}
           />
         </Grid>
-        <Typography>Name</Typography>
-        <Typography>Description</Typography>
-        <Typography>Wallet Address</Typography>
+        <Typography component={"span"}>Name</Typography>
+        <Typography component={"span"}>Description</Typography>
+        <Typography component={"span"}>Wallet Address</Typography>
       </Grid>
       <Grid item xs={9}>
         <Box sx={{ width: "100%" }}>

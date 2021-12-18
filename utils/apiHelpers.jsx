@@ -58,6 +58,8 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
 };
 
 export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
+  setLoadingState("not-loaded");
+
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -95,8 +97,6 @@ export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
     })
   );
 
-  console.log(">>> createdItems: ", createdItems);
-
   // data = await marketContract.fetchSoldItems(address);
 
   // const soldItems = await Promise.all(
@@ -127,6 +127,8 @@ export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
 };
 
 export const loadMyNFTs = async (setNFTs, setLoadingState) => {
+  setLoadingState("not-loaded");
+
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -153,7 +155,7 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
         itemId: i.itemId.toNumber(),
         seller: i.seller,
         owner: i.owner,
-        modelPath: meta.dataPath,
+        modelPath: meta.data.modelPath,
         backgroundColor: meta.data.backgroundColor,
         name: meta.data.name,
         description: meta.data.description,
