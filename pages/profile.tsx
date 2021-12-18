@@ -10,8 +10,6 @@ import NFTsContainer from "../components/NFTsContainer";
 
 import { loadCreatedNFTs, loadMyNFTs } from "../utils/apiHelpers";
 
-import { StyledNoItemsComponent } from "../components/styled";
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -49,7 +47,6 @@ const Profile: NextPage = () => {
   useEffect(() => {
     if (value === 0) loadCreatedNFTs(setNFTs, setLoadingState);
     else if (value === 1) loadMyNFTs(setNFTs, setLoadingState);
-    console.log(">>> nfts: ", NFTs);
   }, [value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -69,7 +66,7 @@ const Profile: NextPage = () => {
         </Grid>
         <Typography component={"span"}>Name</Typography>
         <Typography component={"span"}>Description</Typography>
-        <Typography component={"span"}>Wallet Address</Typography>
+        <Typography component={"span"}>0x12345678</Typography>
       </Grid>
       <Grid item xs={9}>
         <Box sx={{ width: "100%" }}>

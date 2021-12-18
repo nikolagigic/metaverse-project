@@ -5,9 +5,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
+
+import { StyledLinkComponent } from "../styled";
 
 const Box = styled(MUIBox)(({ theme }) => ({
   flexGrow: 1,
@@ -64,8 +66,15 @@ const NavBar = () => {
               />
             </Search>
           </Grid>
+          <Grid container justifyContent={"center"}>
+            <StyledLinkComponent location="/">MARKETPLACE</StyledLinkComponent>
+            <StyledLinkComponent location="/profile">
+              PROFILE
+            </StyledLinkComponent>
+            <StyledLinkComponent location="/studio">STUDIO</StyledLinkComponent>
+          </Grid>
           <Grid container justifyContent="end">
-            <Button color="inherit">Login</Button>
+            <Button color="inherit">LOGIN</Button>
           </Grid>
         </Toolbar>
       </AppBar>

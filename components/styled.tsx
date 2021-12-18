@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Grid, CircularProgress, Typography } from "@mui/material";
+import { Grid, CircularProgress, Typography, Link } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -75,5 +75,29 @@ export const StyledNFTPropertiesComponent: FC<
       <StyledTypographyLabel>{label}</StyledTypographyLabel>
       <StyledTypographyText>{property}</StyledTypographyText>
     </>
+  );
+};
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  padding: "0 27px 0 27px",
+}));
+
+interface StyledLinkComponentProps {
+  children?: React.ReactNode;
+  location: string;
+}
+
+export const StyledLinkComponent = (props: StyledLinkComponentProps) => {
+  const { children, location } = props;
+
+  return (
+    <StyledLink
+      variant="button"
+      href={location}
+      color={"inherit"}
+      underline="none"
+    >
+      {children}
+    </StyledLink>
   );
 };
