@@ -27,27 +27,15 @@ const HomePage: NextPage = () => {
       </Box>
     );
 
+  if (NFTs.length === 0) return <StyledNoItemsComponent />;
+
   return (
     // Max of 16 can be rendered
     <Grid container style={{ paddingTop: "27px" }}>
       <Grid container spacing={4}>
-        {NFTs.length <= 0 ? (
-          <StyledNoItemsComponent />
-        ) : (
-          NFTs.map((NFT, i) => {
-            return (
-              <NFTItem
-                key={i}
-                // itemID={NFT.itemId}
-                // name={NFT.name}
-                // description={NFT.description}
-                // modelPath={NFT.modelPath}
-                // backgroundColor={NFT.backgroundColor}
-                {...NFT}
-              />
-            );
-          })
-        )}
+        {NFTs.map((NFT, i) => (
+          <NFTItem key={i} {...NFT} />
+        ))}
       </Grid>
     </Grid>
   );

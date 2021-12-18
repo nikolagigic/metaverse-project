@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { CircularProgress, Typography } from "@mui/material";
+import { Grid, CircularProgress, Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -29,11 +29,9 @@ export const StyledCircularProgressComponent = () => (
   <StyledCircularProgress color="inherit" />
 );
 
-const StyledNoItems = styled("div")(({ theme }) => ({
+const StyledNoItems = styled(Grid)(({ theme }) => ({
   position: "relative",
-  top: "40vh",
-  margin: "auto",
-
+  top: "calc(30vh + 54px)",
   "& span": {
     padding: 20,
     border: "solid 1px black",
@@ -41,7 +39,11 @@ const StyledNoItems = styled("div")(({ theme }) => ({
 }));
 
 export const StyledNoItemsComponent = () => (
-  <StyledNoItems>
+  <StyledNoItems
+    display={"flex"}
+    justifyContent={"center"}
+    alignContent={"center"}
+  >
     <span>NO ITEMS</span>
   </StyledNoItems>
 );
