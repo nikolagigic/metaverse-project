@@ -44,7 +44,7 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
         seller: i.seller,
         owner: i.owner,
         creator: i.creator,
-        model: meta.data.model,
+        modelPath: meta.data.modelPath,
         name: meta.data.name,
         description: meta.data.description,
         backgroundColor: meta.data.backgroundColor,
@@ -57,7 +57,7 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
   setLoadingState("loaded");
 };
 
-export const loadCreatedNFTs = async (setNFTs, setSold, setLoadingState) => {
+export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -88,38 +88,40 @@ export const loadCreatedNFTs = async (setNFTs, setSold, setLoadingState) => {
         sold: i.sold,
         name: meta.data.name,
         description: meta.data.description,
-        model: meta.data.model,
+        modelPath: meta.data.modelPath,
         backgroundColor: meta.data.backgroundColor,
       };
       return item;
     })
   );
 
-  data = await marketContract.fetchSoldItems(address);
+  console.log(">>> createdItems: ", createdItems);
 
-  const soldItems = await Promise.all(
-    data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId);
-      const meta = await axios.get(tokenUri);
-      let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-      let item = {
-        price,
-        tokenId: i.tokenId.toNumber(),
-        itemId: i.itemId.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        creator: i.creator,
-        sold: i.sold,
-        name: meta.data.name,
-        description: meta.data.description,
-        model: meta.data.model,
-        backgroundColor: meta.data.backgroundColor,
-      };
-      return item;
-    })
-  );
+  // data = await marketContract.fetchSoldItems(address);
 
-  setSold(soldItems);
+  // const soldItems = await Promise.all(
+  //   data.map(async (i) => {
+  //     const tokenUri = await tokenContract.tokenURI(i.tokenId);
+  //     const meta = await axios.get(tokenUri);
+  //     let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+  //     let item = {
+  //       price,
+  //       tokenId: i.tokenId.toNumber(),
+  //       itemId: i.itemId.toNumber(),
+  //       seller: i.seller,
+  //       owner: i.owner,
+  //       creator: i.creator,
+  //       sold: i.sold,
+  //       name: meta.data.name,
+  //       description: meta.data.description,
+  //       modelPath: meta.data.modelPath,
+  //       backgroundColor: meta.data.backgroundColor,
+  //     };
+  //     return item;
+  //   })
+  // );
+
+  // setSold(soldItems);
   setNFTs(createdItems);
   setLoadingState("loaded");
 };
@@ -151,7 +153,7 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
         itemId: i.itemId.toNumber(),
         seller: i.seller,
         owner: i.owner,
-        model: meta.data.model,
+        modelPath: meta.dataPath,
         backgroundColor: meta.data.backgroundColor,
         name: meta.data.name,
         description: meta.data.description,
@@ -205,7 +207,7 @@ export const createNFTObject = async (
   const data = JSON.stringify({
     name,
     description,
-    model: modelURL,
+    modelPath: modelURL,
     backgroundColor: backgroundColor,
   });
 
@@ -266,7 +268,7 @@ export const getNFT = async (
       seller: fetchNft.seller,
       owner: fetchNft.owner,
       creator: fetchNft.creator,
-      model: meta.data.model,
+      modelPath: meta.data.modelPath,
       name: meta.data.name,
       description: meta.data.description,
       backgroundColor: meta.data.backgroundColor,

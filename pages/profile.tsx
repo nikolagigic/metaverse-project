@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Image from "next/image";
 
 import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+
+import NFTsContainer from "../components/NFTsContainer";
+
+import { loadCreatedNFTs, loadMyNFTs } from "../utils/apiHelpers";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,10 +45,25 @@ const a11yProps = (index: number) => {
 
 const Profile: NextPage = () => {
   const [value, setValue] = useState(0);
+  const [NFTs, setNFTs] = useState([]);
+  const [loadingState, setLoadingState] = useState("not-loaded");
+
+  useEffect(() => {
+    console.log(">>> rerendered");
+    console.log(">>> nfts: ", NFTs);
+    switch (value) {
+      case 0:
+        loadCreatedNFTs(setNFTs, setLoadingState);
+      case 1:
+        loadMyNFTs(setNFTs, setLoadingState);
+    }
+  }, [value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    console.log(">>> newValue: ", newValue);
   };
+
   return (
     <Grid container spacing={4} style={{ padding: "27px 54px 0 54px" }}>
       <Grid item xs={3} display="flex" flexDirection={"column"}>
@@ -74,13 +93,13 @@ const Profile: NextPage = () => {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            Item One
+            <NFTsContainer NFTs={NFTs} loadingState={loadingState} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            <NFTsContainer NFTs={NFTs} loadingState={loadingState} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <NFTsContainer NFTs={NFTs} loadingState={loadingState} />
           </TabPanel>
         </Box>
       </Grid>

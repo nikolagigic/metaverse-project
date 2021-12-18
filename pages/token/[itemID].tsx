@@ -31,7 +31,7 @@ const Token: NextPage = () => {
         <>
           <Grid item xs={10}>
             <NFTTokenWrapper
-              modelPath={NFT.model}
+              modelPath={NFT.modelPath}
               backgroundColor={NFT.backgroundColor}
             />
           </Grid>
