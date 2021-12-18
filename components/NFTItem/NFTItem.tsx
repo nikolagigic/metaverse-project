@@ -22,7 +22,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 interface NFTItemProps {
   itemID: number;
-  title?: string;
+  name?: string;
   description?: string;
   modelPath?: string;
   backgroundColor?: string;
@@ -30,7 +30,7 @@ interface NFTItemProps {
 
 const NFTItem: FC<NFTItemProps> = ({
   itemID,
-  title,
+  name,
   description,
   modelPath,
   backgroundColor,
@@ -42,7 +42,7 @@ const NFTItem: FC<NFTItemProps> = ({
 
   const router = useRouter();
 
-  const handleClickOnTitleOrDescription = () => {
+  const handleClickOnNameOrDescription = () => {
     router.push(`/token/${itemID}`);
   };
 
@@ -60,17 +60,15 @@ const NFTItem: FC<NFTItemProps> = ({
             gutterBottom
             style={{ cursor: "pointer" }}
             variant="h5"
-            component={"span"}
-            onClick={handleClickOnTitleOrDescription}
+            onClick={handleClickOnNameOrDescription}
           >
-            {title}
+            {name}
           </Typography>
           <Typography
             style={{ cursor: "pointer" }}
             variant="body2"
-            component={"span"}
             color="text.secondary"
-            onClick={handleClickOnTitleOrDescription}
+            onClick={handleClickOnNameOrDescription}
           >
             {formattedDescription}
           </Typography>

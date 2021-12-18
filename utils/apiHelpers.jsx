@@ -34,13 +34,13 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
 
   const items = await Promise.all(
     data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenID);
       const meta = await axios.get(tokenUri);
       let price = ethers.utils.formatUnits(i.price.toString(), "ether");
       let item = {
         price,
-        tokenId: i.tokenId.toNumber(),
-        itemId: i.itemId.toNumber(),
+        tokenID: i.tokenID.toNumber(),
+        itemID: i.itemID.toNumber(),
         seller: i.seller,
         owner: i.owner,
         creator: i.creator,
@@ -77,13 +77,13 @@ export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
 
   const createdItems = await Promise.all(
     data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenID);
       const meta = await axios.get(tokenUri);
       let price = ethers.utils.formatUnits(i.price.toString(), "ether");
       let item = {
         price,
-        tokenId: i.tokenId.toNumber(),
-        itemId: i.itemId.toNumber(),
+        tokenID: i.tokenID.toNumber(),
+        itemID: i.itemID.toNumber(),
         seller: i.seller,
         owner: i.owner,
         creator: i.creator,
@@ -101,13 +101,13 @@ export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
 
   // const soldItems = await Promise.all(
   //   data.map(async (i) => {
-  //     const tokenUri = await tokenContract.tokenURI(i.tokenId);
+  //     const tokenUri = await tokenContract.tokenURI(i.tokenID);
   //     const meta = await axios.get(tokenUri);
   //     let price = ethers.utils.formatUnits(i.price.toString(), "ether");
   //     let item = {
   //       price,
-  //       tokenId: i.tokenId.toNumber(),
-  //       itemId: i.itemId.toNumber(),
+  //       tokenID: i.tokenID.toNumber(),
+  //       itemID: i.itemID.toNumber(),
   //       seller: i.seller,
   //       owner: i.owner,
   //       creator: i.creator,
@@ -146,13 +146,13 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
 
   const items = await Promise.all(
     data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenID);
       const meta = await axios.get(tokenUri);
       let price = ethers.utils.formatUnits(i.price.toString(), "ether");
       let item = {
         price,
-        tokenId: i.tokenId.toNumber(),
-        itemId: i.itemId.toNumber(),
+        tokenID: i.tokenID.toNumber(),
+        itemID: i.itemID.toNumber(),
         seller: i.seller,
         owner: i.owner,
         modelPath: meta.data.modelPath,
@@ -180,7 +180,7 @@ export const createNFT = async (url, addedPrice) => {
 
   let event = tx.events[0];
   let value = event.args[2];
-  let tokenId = value.toNumber();
+  let tokenID = value.toNumber();
 
   const price = ethers.utils.parseUnits(addedPrice, "ether");
 
@@ -188,7 +188,7 @@ export const createNFT = async (url, addedPrice) => {
   let listingPrice = await contract.getListingPrice(price);
   listingPrice = listingPrice.toString();
 
-  transaction = await contract.createMarketItem(nftaddress, tokenId, price, {
+  transaction = await contract.createMarketItem(nftaddress, tokenID, price, {
     value: listingPrice,
   });
   await transaction.wait();
@@ -232,7 +232,7 @@ export const buyNft = async (nft) => {
 
   const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
 
-  const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
+  const transaction = await contract.createMarketSale(nftaddress, nft.tokenID, {
     value: price,
   });
 
@@ -260,12 +260,12 @@ export const getNFT = async (
 
   try {
     const fetchNft = await marketContract.fetchNFT(itemID);
-    const tokenUri = await tokenContract.tokenURI(fetchNft.tokenId);
+    const tokenUri = await tokenContract.tokenURI(fetchNft.tokenID);
     const meta = await axios.get(tokenUri);
     let price = ethers.utils.formatUnits(fetchNft.price.toString(), "ether");
     let item = {
       price,
-      tokenId: fetchNft.tokenId.toNumber(),
+      tokenID: fetchNft.tokenID.toNumber(),
       itemID: itemID,
       seller: fetchNft.seller,
       owner: fetchNft.owner,
@@ -281,6 +281,5 @@ export const getNFT = async (
     setItemIsSold(false);
   } catch (e) {
     if (!e.message.startsWith("invalid BigNumber value")) console.error(e);
-    if (e.message === "Item has already been sold.") setItemIsSold(true);
   }
 };

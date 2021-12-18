@@ -38,11 +38,12 @@ const HomePage: NextPage = () => {
             return (
               <NFTItem
                 key={i}
-                itemID={NFT.itemId}
-                title={NFT.name}
-                description={NFT.description}
-                modelPath={NFT.modelPath}
-                backgroundColor={NFT.backgroundColor}
+                // itemID={NFT.itemId}
+                // name={NFT.name}
+                // description={NFT.description}
+                // modelPath={NFT.modelPath}
+                // backgroundColor={NFT.backgroundColor}
+                {...NFT}
               />
             );
           })

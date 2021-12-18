@@ -442,8 +442,8 @@
       ]
     },
     "/Users/nikolagigic/Projects/Blockchain/metaverse-project/contracts/NFTMarket.sol": {
-      "lastModificationDate": 1639337024342,
-      "contentHash": "ed3bfc3538dc9551c362fde4cbc1227d",
+      "lastModificationDate": 1639851945362,
+      "contentHash": "fd8b96cce0324577189c7ef477a7c5ff",
       "sourceName": "contracts/NFTMarket.sol",
       "solcConfig": {
         "version": "0.8.4",

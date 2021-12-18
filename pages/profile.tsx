@@ -29,11 +29,7 @@ const TabPanel = (props: TabPanelProps) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component={"div"}>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 };
@@ -51,14 +47,9 @@ const Profile: NextPage = () => {
   const [loadingState, setLoadingState] = useState("not-loaded");
 
   useEffect(() => {
-    switch (value) {
-      case 0:
-        loadCreatedNFTs(setNFTs, setLoadingState);
-      case 1:
-        loadMyNFTs(setNFTs, setLoadingState);
-      case 2:
-        setLoadingState("not-loaded");
-    }
+    if (value === 0) loadCreatedNFTs(setNFTs, setLoadingState);
+    else if (value === 1) loadMyNFTs(setNFTs, setLoadingState);
+    console.log(">>> nfts: ", NFTs);
   }, [value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -100,7 +91,7 @@ const Profile: NextPage = () => {
             <NFTsContainer NFTs={NFTs} loadingState={loadingState} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <NFTsContainer NFTs={NFTs} loadingState={loadingState} />
+            Creators that user follows
           </TabPanel>
         </Box>
       </Grid>
