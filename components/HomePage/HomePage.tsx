@@ -6,7 +6,11 @@ import { Grid, Box } from "@mui/material";
 
 import NFTsContainer from "../NFTsContainer";
 
-import { loadMarketNFTs, getTokenValue } from "../../utils/apiHelpers";
+import {
+  loadMarketNFTs,
+  getTokenValue,
+  getNikolaTokenValue,
+} from "../../utils/apiHelpers";
 import {
   StyledCircularProgressComponent,
   StyledNoItemsComponent,
@@ -19,6 +23,7 @@ const HomePage: NextPage = () => {
   useEffect(() => {
     loadMarketNFTs(setNFTs, setLoadingState);
     getTokenValue();
+    getNikolaTokenValue();
   }, []);
 
   if (loadingState !== "loaded")

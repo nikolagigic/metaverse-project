@@ -14,6 +14,13 @@ async function main() {
   console.log("NFT Deploy Address: ", nft.address);
 
   await nft.deployed();
+
+  const NikolaToken = await hre.ethers.getContractFactory("NikolaToken");
+  const token = await NikolaToken.deploy();
+
+  console.log("Nikola Token Address: ", token.address);
+
+  await token.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere

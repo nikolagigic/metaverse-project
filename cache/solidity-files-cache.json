@@ -442,8 +442,8 @@
       ]
     },
     "/Users/nikolagigic/Projects/Blockchain/metaverse-project/contracts/NFTMarket.sol": {
-      "lastModificationDate": 1639917017212,
-      "contentHash": "b2148e6dcf136490e2d5d4a8fd2665fd",
+      "lastModificationDate": 1639931602575,
+      "contentHash": "b6d6d2950335f58d361d84ddebe3112a",
       "sourceName": "contracts/NFTMarket.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -549,6 +549,44 @@
       ],
       "artifacts": [
         "ReentrancyGuard"
+      ]
+    },
+    "/Users/nikolagigic/Projects/Blockchain/metaverse-project/contracts/NikolaToken.sol": {
+      "lastModificationDate": 1639933451750,
+      "contentHash": "4181f9ba27f55ba836fbb95c5063c42e",
+      "sourceName": "contracts/NikolaToken.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "NikolaToken"
       ]
     }
   }

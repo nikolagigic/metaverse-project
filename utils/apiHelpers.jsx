@@ -1,15 +1,53 @@
 import axios from "axios";
-import Cors from "cors";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 
-import { nftaddress, nftmarketaddress } from "../config";
+import { nftaddress, nftmarketaddress, tokenaddress } from "../config";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+import NikolaToken from "../artifacts/contracts/NikolaToken.sol/NikolaToken.json";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+
+export const getTokenValue = async () => {
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+
+  const marketContract = new ethers.Contract(
+    nftmarketaddress,
+    Market.abi,
+    signer
+  );
+
+  const value = await marketContract.getTokenValue();
+  const formattedValue = parseFloat(value) / 1e18;
+
+  console.log(`${formattedValue} ETH`);
+  console.log(4000 / formattedValue);
+};
+
+export const getNikolaTokenValue = async () => {
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+
+  const nikolaTokenContract = new ethers.Contract(
+    tokenaddress,
+    NikolaToken.abi,
+    signer
+  );
+
+  const value = await nikolaTokenContract.getTokenValueInEthers();
+  const formattedValue = parseFloat(value) / 1e18;
+
+  console.log(`Nikola Token in ETH: ${formattedValue} ETH`);
+  console.log(`Nikola Token in USD: ${formattedValue * 4000} USD`);
+};
 
 export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
   // before: async (setNfts, setLoadingState)
@@ -52,28 +90,6 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
 
   setNFTs(items);
   setLoadingState("loaded");
-};
-
-export const getTokenValue = async () => {
-  const web3Modal = new Web3Modal();
-  const connection = await web3Modal.connect();
-  const provider = new ethers.providers.Web3Provider(connection);
-  const signer = provider.getSigner();
-  const address = await signer.getAddress();
-
-  const marketContract = new ethers.Contract(
-    nftmarketaddress,
-    Market.abi,
-    signer
-  );
-
-  const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
-
-  const value = await marketContract.getTokenValue();
-  const formattedValue = parseFloat(value) / 1e18;
-
-  console.log(`${formattedValue} ETH`);
-  console.log(4000 / formattedValue);
 };
 
 export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
