@@ -26,7 +26,8 @@ const TokenRenderer: FC<TokenRendererProps> = ({
   const gltfModel = useGLTF(modelPath);
   const animations = useAnimations(gltfModel.animations);
   let mixer: THREE.AnimationMixer;
-  const clone = useMemo(() => cloneModel(gltfModel.scene), [gltfModel.scene]);
+  // const clone = useMemo(() => cloneModel(gltfModel.scene), [gltfModel.scene]);
+  const clone = cloneModel(gltfModel.scene);
 
   const [sceneColor, setSceneColor] = useState(0x00000);
 

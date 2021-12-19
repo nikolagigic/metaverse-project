@@ -1,8 +1,5 @@
-import { useState } from "react";
-
-import { useRouter } from "next/router";
-
 import axios from "axios";
+import Cors from "cors";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
@@ -55,6 +52,28 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
 
   setNFTs(items);
   setLoadingState("loaded");
+};
+
+export const getTokenValue = async () => {
+  const web3Modal = new Web3Modal();
+  const connection = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(connection);
+  const signer = provider.getSigner();
+  const address = await signer.getAddress();
+
+  const marketContract = new ethers.Contract(
+    nftmarketaddress,
+    Market.abi,
+    signer
+  );
+
+  const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
+
+  const value = await marketContract.getTokenValue();
+  const formattedValue = parseFloat(value) / 1e18;
+
+  console.log(`${formattedValue} ETH`);
+  console.log(4000 / formattedValue);
 };
 
 export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {

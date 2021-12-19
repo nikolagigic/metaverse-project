@@ -20,6 +20,7 @@
     "@react-three/fiber": "^7.0.21",
     "@react-three/postprocessing": "^2.0.5",
     "axios": "^0.24.0",
+    "cors": "^2.8.5",
     "fbx2gltf": "^0.9.7-p1",
     "hardhat-waffle": "^0.0.1-security",
     "ipfs-http-client": "^54.0.2",

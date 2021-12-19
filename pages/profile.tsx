@@ -54,7 +54,7 @@ const Profile: NextPage = () => {
   };
 
   return (
-    <Grid container spacing={4} style={{ padding: "27px 54px 0 54px" }}>
+    <Grid container spacing={4} sx={{ padding: "27px 54px 0 54px" }}>
       <Grid item xs={3} display="flex" flexDirection={"column"}>
         <Grid item>
           <Image
@@ -64,9 +64,24 @@ const Profile: NextPage = () => {
             src={"/static/images/profile_avatar.jpg"}
           />
         </Grid>
-        <Typography component={"span"}>Name</Typography>
-        <Typography component={"span"}>Description</Typography>
-        <Typography component={"span"}>0x12345678</Typography>
+        <Typography
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+          component={"span"}
+        >
+          Name
+        </Typography>
+        <Typography
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+          component={"span"}
+        >
+          Description
+        </Typography>
+        <Typography
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+          component={"span"}
+        >
+          0x12345678
+        </Typography>
       </Grid>
       <Grid item xs={9}>
         <Box sx={{ width: "100%" }}>

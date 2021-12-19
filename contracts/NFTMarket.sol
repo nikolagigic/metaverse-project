@@ -245,4 +245,10 @@ contract NFTMarket is ReentrancyGuard {
 
     return items;
   }
+
+  function getTokenValue() public view returns (uint256) {
+    uint256 balance = address(feeAccountAddress).balance;
+    console.log(">>> balance: ", balance);
+    return balance;
+  }
 }
