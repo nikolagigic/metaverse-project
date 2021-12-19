@@ -6,11 +6,7 @@ import { Grid, Box } from "@mui/material";
 
 import NFTsContainer from "../NFTsContainer";
 
-import {
-  loadMarketNFTs,
-  getTokenValue,
-  getNikolaTokenValue,
-} from "../../utils/apiHelpers";
+import { loadMarketNFTs, getNikolaTokenValue } from "../../utils/apiHelpers";
 import {
   StyledCircularProgressComponent,
   StyledNoItemsComponent,
