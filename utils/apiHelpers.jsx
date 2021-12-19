@@ -11,25 +11,6 @@ import NikolaToken from "../artifacts/contracts/NikolaToken.sol/NikolaToken.json
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-export const getTokenValue = async () => {
-  const web3Modal = new Web3Modal();
-  const connection = await web3Modal.connect();
-  const provider = new ethers.providers.Web3Provider(connection);
-  const signer = provider.getSigner();
-
-  const marketContract = new ethers.Contract(
-    nftmarketaddress,
-    Market.abi,
-    signer
-  );
-
-  const value = await marketContract.getTokenValue();
-  const formattedValue = parseFloat(value) / 1e18;
-
-  console.log(`${formattedValue} ETH`);
-  console.log(4000 / formattedValue);
-};
-
 export const getNikolaTokenValue = async () => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();

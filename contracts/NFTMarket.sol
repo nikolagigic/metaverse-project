@@ -14,8 +14,6 @@ contract NFTMarket is ReentrancyGuard {
   address payable owner;
   address payable feeAccountAddress =
     payable(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199);
-  address payable nikolaTokenAddress =
-    payable(0x95401dc811bb5740090279Ba06cfA8fcF6113778);
 
   constructor() {
     owner = payable(msg.sender);
@@ -246,11 +244,5 @@ contract NFTMarket is ReentrancyGuard {
     }
 
     return items;
-  }
-
-  function getTokenValue() public view returns (uint256) {
-    uint256 balance = address(feeAccountAddress).balance;
-    console.log(">>> balance: ", balance);
-    return balance;
   }
 }
