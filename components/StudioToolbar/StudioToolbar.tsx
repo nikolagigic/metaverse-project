@@ -1,6 +1,6 @@
 import { FC, useState, Dispatch, SetStateAction } from "react";
 
-import { BlockPicker, ChromePicker } from "react-color";
+import { ChromePicker } from "react-color";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -91,6 +91,7 @@ const BasicList: FC<StudioToolbarProps> = ({
         <ListItem>
           <ChromePicker
             color={backgroundColor}
+            disableAlpha={true}
             onChange={(e) => setBackgroundColor(e.hex)}
           />
         </ListItem>
