@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Box as MUIBox, Avatar } from "@mui/material";
+import { Box as MUIBox, Avatar, Chip } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
@@ -56,6 +56,24 @@ const NavBar = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justifyContent="start">
+            <Button>
+              <Chip
+                sx={{ textTransform: "none" }}
+                label="0x12345678"
+                variant="outlined"
+                avatar={<Avatar src="/static/images/profile_avatar.jpg" />}
+              />
+            </Button>
+          </Grid>
+
+          <Grid container justifyContent={"center"}>
+            <StyledLinkComponent location="/">MARKETPLACE</StyledLinkComponent>
+            <StyledLinkComponent location="/profile">
+              PROFILE
+            </StyledLinkComponent>
+            <StyledLinkComponent location="/studio">STUDIO</StyledLinkComponent>
+          </Grid>
+          <Grid container justifyContent="end">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -65,18 +83,6 @@ const NavBar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-          </Grid>
-          <Grid container justifyContent={"center"}>
-            <StyledLinkComponent location="/">MARKETPLACE</StyledLinkComponent>
-            <StyledLinkComponent location="/profile">
-              PROFILE
-            </StyledLinkComponent>
-            <StyledLinkComponent location="/studio">STUDIO</StyledLinkComponent>
-          </Grid>
-          <Grid container justifyContent="end">
-            <Button>
-              <Avatar src="/static/images/profile_avatar.jpg" />
-            </Button>
           </Grid>
         </Toolbar>
       </AppBar>
