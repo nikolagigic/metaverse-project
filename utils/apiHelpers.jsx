@@ -31,7 +31,6 @@ export const getNikolaTokenValue = async () => {
 };
 
 export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
-  // before: async (setNfts, setLoadingState)
   // const provider = new ethers.providers.JsonRpcProvider(
   //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   // );
@@ -217,8 +216,6 @@ export const createNFTObject = async (
   modelURL,
   backgroundColor
 ) => {
-  // before: createMarket
-
   if (!name || !description || !addedPrice || !modelURL || !backgroundColor)
     return;
 
