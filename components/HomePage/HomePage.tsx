@@ -17,16 +17,9 @@ const HomePage: NextPage = () => {
   const [loadingState, setLoadingState] = useState();
 
   useEffect(() => {
-    loadMarketNFTs(setNFTs, setLoadingState);
+    loadMarketNFTs(setNFTs, setLoadingState, 1);
     getNikolaTokenValue();
   }, []);
-
-  if (loadingState !== "loaded")
-    return (
-      <Box sx={{ display: "flex" }}>
-        <StyledCircularProgressComponent />
-      </Box>
-    );
 
   if (NFTs.length === 0) return <StyledNoItemsComponent />;
 

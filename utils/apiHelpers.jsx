@@ -30,7 +30,7 @@ export const getNikolaTokenValue = async () => {
   console.log(`Nikola Token in USD: ${formattedValue * 4000} USD`);
 };
 
-export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
+export const loadMarketNFTs = async (setNFTs, setLoadingState, page) => {
   // const provider = new ethers.providers.JsonRpcProvider(
   //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   // );
@@ -47,13 +47,13 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
   );
 
   try {
-    const response = await marketContract.fetchMarketItems(address, 1);
+    const pageCount = parseInt(await marketContract.getPageCount(address));
 
-    const data = response[0];
-    const pageCount = response[1];
-
-    console.log(">>> data: ", data);
-    console.log(">>> pageCount: ", pageCount);
+    if (page > pageCount) {
+      setNFTs([]);
+      return;
+    }
+    const data = await marketContract.fetchMarketItems(address, page);
 
     const items = await Promise.all(
       data.map(async (i) => {
@@ -79,7 +79,10 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
     setNFTs(items);
     setLoadingState("loaded");
   } catch (e) {
-    if (e.message === "Invalid Page") console.error(e.message);
+    if (e.message === "Invalid Page") {
+      setNFTs([]);
+      setLoadingState("not-loaded");
+    }
   }
 };
 
