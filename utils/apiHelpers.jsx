@@ -45,31 +45,42 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState) => {
     Market.abi,
     provider
   );
-  const data = await marketContract.fetchMarketItems(address);
 
-  const items = await Promise.all(
-    data.map(async (i) => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenID);
-      const meta = await axios.get(tokenUri);
-      let price = ethers.utils.formatUnits(i.price.toString(), "ether");
-      let item = {
-        price,
-        tokenID: i.tokenID.toNumber(),
-        itemID: i.itemID.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        creator: i.creator,
-        modelPath: meta.data.modelPath,
-        name: meta.data.name,
-        description: meta.data.description,
-        backgroundColor: meta.data.backgroundColor,
-      };
-      return item;
-    })
-  );
+  try {
+    const response = await marketContract.fetchMarketItems(address, 1);
 
-  setNFTs(items);
-  setLoadingState("loaded");
+    const data = response[0];
+    const pageCount = response[1];
+
+    console.log(">>> data: ", data);
+    console.log(">>> pageCount: ", pageCount);
+
+    const items = await Promise.all(
+      data.map(async (i) => {
+        const tokenUri = await tokenContract.tokenURI(i.tokenID);
+        const meta = await axios.get(tokenUri);
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let item = {
+          price,
+          tokenID: i.tokenID.toNumber(),
+          itemID: i.itemID.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          creator: i.creator,
+          modelPath: meta.data.modelPath,
+          name: meta.data.name,
+          description: meta.data.description,
+          backgroundColor: meta.data.backgroundColor,
+        };
+        return item;
+      })
+    );
+
+    setNFTs(items);
+    setLoadingState("loaded");
+  } catch (e) {
+    if (e.message === "Invalid Page") console.error(e.message);
+  }
 };
 
 export const loadCreatedNFTs = async (setNFTs, setLoadingState) => {
