@@ -3,14 +3,11 @@ import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { Grid, Button, Typography, CircularProgress } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 
 import NFTTokenWrapper from "../../components/TokenRenderer/NFTTokenWrapper";
-import {
-  StyledCircularProgressComponent,
-  StyledNoItemsComponent,
-  StyledNFTPropertiesComponent,
-} from "../../components/styled";
+import TokenDetails from "../../components/TokenDetails";
+import { StyledCircularProgressComponent } from "../../components/styled";
 
 import { getNFT, buyNft } from "../../utils/apiHelpers";
 
@@ -35,28 +32,10 @@ const Token: NextPage = () => {
               backgroundColor={NFT.backgroundColor}
             />
           </Grid>
-          <Grid item xs={2} textAlign={"center"} style={{ paddingTop: 56 }}>
-            <Grid item>
-              <StyledNFTPropertiesComponent label="Title" property={NFT.name} />
-            </Grid>
-            <StyledNFTPropertiesComponent
-              label="Description"
-              property={NFT.description}
-            />
-            <StyledNFTPropertiesComponent label="Price" property={NFT.price} />
-            <Button
-              variant="contained"
-              onClick={() => {
-                buyNft(NFT);
-              }}
-              color="primary"
-            >
-              BUY
-            </Button>
+          <Grid item xs={2}>
+            <TokenDetails NFT={NFT} />
           </Grid>
         </>
-      ) : itemIsSold ? (
-        <StyledNoItemsComponent />
       ) : (
         <StyledCircularProgressComponent />
       )}
