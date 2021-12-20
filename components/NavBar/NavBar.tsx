@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Box as MUIBox } from "@mui/material";
+import { Box as MUIBox, Avatar } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
@@ -74,7 +74,9 @@ const NavBar = () => {
             <StyledLinkComponent location="/studio">STUDIO</StyledLinkComponent>
           </Grid>
           <Grid container justifyContent="end">
-            <Button color="inherit">LOGIN</Button>
+            <Button>
+              <Avatar src="/static/images/profile_avatar.jpg" />
+            </Button>
           </Grid>
         </Toolbar>
       </AppBar>

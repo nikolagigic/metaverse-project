@@ -14,7 +14,6 @@ const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 const StyledInput = styled(Grid)(({ theme }) => ({
   backgroundColor: "black",
-  color: "white",
   height: "calc(100vh - 56px)",
 }));
 
@@ -49,7 +48,7 @@ const NFTCreator = () => {
 
   return (
     <Grid container sx={{ height: "calc(100vh - 56px)", overflow: "auto" }}>
-      <Grid item xs={10} sx={{ backgroundColor: "black" }}>
+      <Grid item xs={10}>
         {NFTDetails.modelURL ? (
           <NFTTokenWrapper
             modelPath={NFTDetails.modelURL}

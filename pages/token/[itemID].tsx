@@ -49,6 +49,7 @@ const Token: NextPage = () => {
               onClick={() => {
                 buyNft(NFT);
               }}
+              color="primary"
             >
               BUY
             </Button>

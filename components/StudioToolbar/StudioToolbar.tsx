@@ -43,7 +43,7 @@ const BasicList: FC<StudioToolbarProps> = ({
     <Box
       sx={{
         maxWidth: 360,
-        maxHeight: "100%",
+        height: "100%",
         bgcolor: "background.paper",
         display: "flex",
       }}
@@ -108,6 +108,7 @@ const BasicList: FC<StudioToolbarProps> = ({
             }}
             sx={{ margin: "auto" }}
             variant="contained"
+            color="primary"
           >
             CREATE
           </Button>

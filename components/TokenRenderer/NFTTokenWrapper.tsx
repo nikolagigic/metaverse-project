@@ -82,7 +82,7 @@ const NFTTokenWrapper: FC<NFTTokenWrapperProps> = ({
         />
       </Suspense>
       <Precompile />
-      <Stats />
+      {/* <Stats /> */}
     </Canvas>
   );
 };

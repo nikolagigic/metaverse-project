@@ -91,9 +91,9 @@ const Profile: NextPage = () => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Created" {...a11yProps(0)} />
-              <Tab label="Owned" {...a11yProps(1)} />
-              <Tab label="Follows" {...a11yProps(2)} />
+              <Tab sx={{ color: "black" }} label="Created" {...a11yProps(0)} />
+              <Tab sx={{ color: "black" }} label="Owned" {...a11yProps(1)} />
+              <Tab sx={{ color: "black" }} label="Follows" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
