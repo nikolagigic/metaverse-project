@@ -108,11 +108,13 @@ contract NFTMarket is ReentrancyGuard {
     _itemsSold.increment();
   }
 
-  function fetchMarketItems(address signerAddress)
+  function fetchMarketItems(address signerAddress, uint256 page)
     public
     view
-    returns (MarketItem[] memory)
+    returns (MarketItem[] memory, uint256)
   {
+    require(page > 0, "Invalid Page");
+
     uint256 totalItemCount = _itemIDs.current();
     uint256 itemCount = 0;
     uint256 currentIndex = 0;
@@ -127,8 +129,22 @@ contract NFTMarket is ReentrancyGuard {
       }
     }
 
+    uint256 itemsPerPage = 12;
+    uint256 startIndex = 0;
+    uint256 endIndex = 0;
+
+    if (page == 1) {
+      if (itemsPerPage <= itemCount) endIndex = itemsPerPage;
+      else endIndex = itemCount;
+    } else {
+      startIndex = itemsPerPage * page;
+      endIndex = itemsPerPage * (page + 1);
+
+      if (endIndex > itemCount) endIndex = itemCount;
+    }
+
     MarketItem[] memory items = new MarketItem[](itemCount);
-    for (uint256 i = 0; i < totalItemCount; i++) {
+    for (uint256 i = startIndex; i < endIndex; i++) {
       if (
         idToMarketItem[i + 1].owner == address(0) &&
         idToMarketItem[i + 1].creator != signerAddress &&
@@ -141,7 +157,9 @@ contract NFTMarket is ReentrancyGuard {
       }
     }
 
-    return items;
+    uint256 pageCount = itemCount / itemsPerPage;
+
+    return (items, pageCount);
   }
 
   function fetchSoldItems(address signerAddress)
