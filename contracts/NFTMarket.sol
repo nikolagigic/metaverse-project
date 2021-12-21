@@ -111,7 +111,7 @@ contract NFTMarket is ReentrancyGuard {
   function getPageCount(address signerAddress) public view returns (uint256) {
     uint256 totalItemCount = _itemIDs.current();
     uint256 itemCount = 0;
-    uint256 itemsPerPage = 2;
+    uint256 itemsPerPage = 12;
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (
@@ -138,7 +138,7 @@ contract NFTMarket is ReentrancyGuard {
     uint256 totalItemCount = _itemIDs.current();
     uint256 itemCount = 0;
     uint256 currentIndex = 0;
-    uint256 itemsPerPage = 2;
+    uint256 itemsPerPage = 12;
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (
