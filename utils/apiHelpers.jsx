@@ -30,7 +30,12 @@ export const getNikolaTokenValue = async () => {
   console.log(`Nikola Token in USD: ${formattedValue * 4000} USD`);
 };
 
-export const loadMarketNFTs = async (setNFTs, setLoadingState, page) => {
+export const loadMarketNFTs = async (
+  setNFTs,
+  setLoadingState,
+  setPageCount,
+  page
+) => {
   // const provider = new ethers.providers.JsonRpcProvider(
   //   "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   // );
@@ -48,6 +53,7 @@ export const loadMarketNFTs = async (setNFTs, setLoadingState, page) => {
 
   try {
     const pageCount = parseInt(await marketContract.getPageCount(address));
+    setPageCount(pageCount);
 
     if (page > pageCount) {
       setNFTs([]);
