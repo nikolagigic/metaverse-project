@@ -20,7 +20,7 @@ const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
   if (NFTs.length === 0) return <StyledNoItemsComponent />;
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={4} display={"flex"} justifyContent={"center"}>
       {NFTs.map((NFT, i) => (
         <NFTItem key={i} {...NFT} />
       ))}
