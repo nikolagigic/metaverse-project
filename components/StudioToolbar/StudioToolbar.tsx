@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
-import { TextField, Button, InputAdornment } from "@mui/material";
+import { TextField, Button, InputAdornment, Typography } from "@mui/material";
 
 import { createNFTObject } from "../../utils/apiHelpers";
 
@@ -39,10 +39,18 @@ const BasicList: FC<StudioToolbarProps> = ({
   NFTDetails,
   setNFTDetails,
 }) => {
+  const [priceClientGets, setPriceClientGets] = useState('0');
+
+  const handlePriceChange = (value: string) => {
+    const parsedValue = parseFloat(value);
+    const calculatedValue = (parsedValue - (parsedValue / 100)).toString();
+    setPriceClientGets(calculatedValue)
+  }
+
   return (
     <Box
       sx={{
-        maxWidth: 360,
+        width: '100%',
         height: "100%",
         bgcolor: "background.paper",
         display: "flex",
@@ -82,10 +90,15 @@ const BasicList: FC<StudioToolbarProps> = ({
             }}
             variant="standard"
             label="Price"
-            onChange={(e) =>
-              setNFTDetails({ ...NFTDetails, addedPrice: e.target.value })
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+              handlePriceChange(value);
+              setNFTDetails({ ...NFTDetails, addedPrice: value })
+            }}
           />
+        </ListItem>
+        <ListItem>
+          <Typography color={'white'}>You get: {priceClientGets} ETH</Typography>
         </ListItem>
         <Divider />
         <ListItem>
