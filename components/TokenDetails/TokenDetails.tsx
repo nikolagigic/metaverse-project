@@ -58,7 +58,7 @@ const BasicList: FC<StudioToolbarProps> = ({ NFT }) => {
     >
       <List>
         <ListItem>
-          <Box>
+          <Box sx={{margin:'auto'}}>
             <Typography fontSize={'0.75rem'} color={'white'} sx={{opacity: 0.7}}>Name</Typography>
             <StyledTypography sx={{borderBottom: 'solid 1px rgba(255, 255, 255, .7)'}}>{NFT.name}</StyledTypography>
           </Box>
@@ -70,7 +70,7 @@ const BasicList: FC<StudioToolbarProps> = ({ NFT }) => {
           </Box>
         </ListItem>
         <ListItem>
-        <Box sx={{borderBottom: 'solid 1px rgba(255, 255, 255, .7)'}}>
+        <Box sx={{margin:'auto', borderBottom: 'solid 1px rgba(255, 255, 255, .7)'}}>
           <Typography fontSize={'0.75rem'} color={'white'} sx={{opacity: 0.7}} component={'label'}>Price</Typography>
           <Grid container>
             <Grid item xs={10}>
