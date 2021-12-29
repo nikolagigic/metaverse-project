@@ -10,6 +10,9 @@ import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 import NikolaToken from "../artifacts/contracts/NikolaToken.sol/NikolaToken.json";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+// const provider = new ethers.providers.JsonRpcProvider(
+//     "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+//   );
 
 export const getNikolaTokenValue = async () => {
   const web3Modal = new Web3Modal();
