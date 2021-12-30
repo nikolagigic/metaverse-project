@@ -1,20 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const connection = {};
 
 const dbConnect = async () => {
-    if (connection.isConnected) {
-        return;
-    }
+  if (connection.isConnected) {
+    return;
+  }
 
-    const db = await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+  const db = await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-    connection.isConnected = db.connections[0].readyState;
+  connection.isConnected = db.connections[0].readyState;
 
-    console.log('Connected to MongoDB Atlas: ', connection.isConnected);
-}
+  console.log("Connected to MongoDB Atlas: ", connection.isConnected);
+};
 
 export default dbConnect;

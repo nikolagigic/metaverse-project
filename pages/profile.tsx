@@ -1,14 +1,16 @@
 import type { NextPage } from "next";
-
 import { useState, useEffect } from "react";
 
 import Image from "next/image";
-
 import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
 
 import NFTsContainer from "../components/NFTsContainer";
-
-import { loadCreatedNFTs, loadMyNFTs } from "../utils/apiHelpers";
+import {
+  loadCreatedNFTs,
+  loadMyNFTs,
+  getAccountDetails,
+} from "../utils/apiHelpers";
+import { UserDetailsProps } from "../types/types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,6 +45,13 @@ const Profile: NextPage = () => {
   const [value, setValue] = useState(0);
   const [NFTs, setNFTs] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const [accountAddress, setAccountAddress] = useState("");
+  const [userDetails, setUserDetails] = useState<UserDetailsProps>();
+
+  useEffect(() => {
+    getAccountDetails(setAccountAddress, setUserDetails);
+    console.log(userDetails);
+  }, [accountAddress]);
 
   useEffect(() => {
     if (value === 0) loadCreatedNFTs(setNFTs, setLoadingState);
@@ -64,24 +73,9 @@ const Profile: NextPage = () => {
             src={"/static/images/profile_avatar.jpg"}
           />
         </Grid>
-        <Typography
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-          component={"span"}
-        >
-          Name
-        </Typography>
-        <Typography
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-          component={"span"}
-        >
-          Description
-        </Typography>
-        <Typography
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-          component={"span"}
-        >
-          0x12345678
-        </Typography>
+        <Typography>{userDetails?.data.username}</Typography>
+        <Typography>{userDetails?.data.description}</Typography>
+        <Typography>{accountAddress}</Typography>
       </Grid>
       <Grid item xs={9}>
         <Box sx={{ width: "100%" }}>

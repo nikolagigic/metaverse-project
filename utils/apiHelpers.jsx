@@ -14,7 +14,7 @@ const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 //     "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
 //   );
 
-export const checkIfAccountExists = async (setAccountAddress, setUserDetails) => {
+export const getAccountDetails = async (setAccountAddress, setUserDetails) => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -22,14 +22,18 @@ export const checkIfAccountExists = async (setAccountAddress, setUserDetails) =>
   const address = await signer.getAddress();
 
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/account/${address}`)
-    
+    const { data } = await axios.get(
+      `http://localhost:3000/api/account/${address}`
+    );
+
+    console.log(">>> data: ", data);
+
     setAccountAddress(address);
     setUserDetails(data);
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const getNikolaTokenValue = async () => {
   const web3Modal = new Web3Modal();

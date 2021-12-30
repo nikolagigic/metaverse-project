@@ -39,18 +39,18 @@ const BasicList: FC<StudioToolbarProps> = ({
   NFTDetails,
   setNFTDetails,
 }) => {
-  const [priceClientGets, setPriceClientGets] = useState('0');
+  const [priceClientGets, setPriceClientGets] = useState("0");
 
   const handlePriceChange = (value: string) => {
     const parsedValue = parseFloat(value);
-    const calculatedValue = (parsedValue - (parsedValue / 100)).toString();
-    setPriceClientGets(calculatedValue)
-  }
+    const calculatedValue = (parsedValue - parsedValue / 100).toString();
+    setPriceClientGets(calculatedValue);
+  };
 
   return (
     <Box
       sx={{
-        width: '100%',
+        width: "100%",
         height: "100%",
         bgcolor: "background.paper",
         display: "flex",
@@ -93,12 +93,14 @@ const BasicList: FC<StudioToolbarProps> = ({
             onChange={(e) => {
               const value = e.target.value;
               handlePriceChange(value);
-              setNFTDetails({ ...NFTDetails, addedPrice: value })
+              setNFTDetails({ ...NFTDetails, addedPrice: value });
             }}
           />
         </ListItem>
         <ListItem>
-          <Typography color={'white'}>You get: {priceClientGets} ETH</Typography>
+          <Typography color={"white"}>
+            You get: {priceClientGets} ETH
+          </Typography>
         </ListItem>
         <Divider />
         <ListItem>

@@ -1,1 +1,1 @@
-export { default } from './AccountChip';
+export { default } from "./AccountChip";
