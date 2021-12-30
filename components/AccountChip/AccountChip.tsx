@@ -26,8 +26,10 @@ const AccountChip: FC = () => {
     useEffect(() => {
         checkIfAccountExists(setAccountAddress, setUserDetails)
 
-        setUserRegistered(accountAddress !== null)
-    }, [accountAddress])
+        console.log(userDetails?.success)
+
+        setUserRegistered(userDetails?.success)
+    }, [accountAddress, userDetails?.success])
 
     const handleButtonClick = () => {
         setOpenModal(!userRegistered)
@@ -37,12 +39,13 @@ const AccountChip: FC = () => {
         <>
             {openModal && <UserCreationModal accountAddress={accountAddress} setOpenModal={setOpenModal} />}
             <Button onClick={handleButtonClick}>
+                {userRegistered ? 
                 <Chip
                     sx={{ textTransform: "none" }}
-                    label="0x12345678"
+                    label={accountAddress}
                     variant="outlined"
                     avatar={<Avatar src="/static/images/profile_avatar.jpg" />}
-                />
+                /> : <Avatar src="/static/images/profile_avatar.jpg" />}
             </Button>
         </>
     )
