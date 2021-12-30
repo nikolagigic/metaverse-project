@@ -15,7 +15,6 @@ const Paginator: FC<PaginatorProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  console.log(">>> current page: ", currentPage);
   return (
     <Box
       sx={{

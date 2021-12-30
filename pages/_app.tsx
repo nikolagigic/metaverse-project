@@ -1,8 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
-// import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-
 import { createTheme, ThemeProvider } from "@mui/material";
 
 import { StyledNavBarComponent } from "../components/styled";

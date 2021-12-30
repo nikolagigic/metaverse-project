@@ -26,8 +26,6 @@ const AccountChip: FC = () => {
     useEffect(() => {
         checkIfAccountExists(setAccountAddress, setUserDetails)
 
-        console.log(userDetails?.success)
-
         setUserRegistered(userDetails?.success)
     }, [accountAddress, userDetails?.success])
 
