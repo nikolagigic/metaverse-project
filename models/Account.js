@@ -12,6 +12,7 @@ const AccountSchema = new mongoose.Schema({
         required: [true, 'Address not provided. Please provide an wallet address.'],
         unique: [true, 'Address not unique. Do you already have an account?'],
         maxlength: 35,
+        trim: true,
     },
     avatar: {
         type: String,
