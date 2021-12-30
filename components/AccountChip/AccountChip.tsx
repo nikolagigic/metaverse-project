@@ -38,7 +38,14 @@ const AccountChip: FC = () => {
             sx={{ textTransform: "none" }}
             label={accountAddress}
             variant="outlined"
-            avatar={<Avatar src="/static/images/profile_avatar.jpg" />}
+            avatar={
+              <Avatar
+                src={
+                  userDetails?.data.avatar ||
+                  "/static/images/profile_avatar.jpg"
+                }
+              />
+            }
           />
         ) : (
           <Avatar src="/static/images/profile_avatar.jpg" />

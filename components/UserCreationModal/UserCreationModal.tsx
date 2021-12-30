@@ -1,11 +1,15 @@
 import { FC, useEffect, useState } from "react";
 
 import axios from "axios";
+import { create as ipfsHttpClient } from "ipfs-http-client";
 
 import { Avatar, Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+
+// @ts-ignore
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 const style = {
   position: "absolute" as "absolute",
@@ -34,6 +38,7 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
     username: "",
     address: accountAddress,
     description: "",
+    avatar: "",
   });
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -44,7 +49,23 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
   useEffect(() => {
     handleOpen();
     setFormDetails({ ...formDetails, address: accountAddress });
-  }, []);
+
+    console.log(formDetails);
+  }, [formDetails.avatar]);
+
+  const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file, {
+        // @ts-ignore
+        progress: (prog: string) => console.log(`received: ${prog}`),
+      });
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setFormDetails({ ...formDetails, avatar: url });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleCreate = () => {
     axios.post("http://localhost:3000/api/account", formDetails);
@@ -72,11 +93,17 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
           >
             Create an Account
           </Typography>
-          <Button>
-            <Avatar sx={{ width: 256, height: 256, marginBottom: 2 }} />
+          <Button component="label">
+            <input
+              hidden
+              type="file"
+              name="avatar-image"
+              onChange={onChangeAvatar}
+            />
+            <Avatar sx={{ width: 256, height: 256 }} src={formDetails.avatar} />
           </Button>
           <TextField
-            sx={{ marginBottom: 4 }}
+            sx={{ marginBottom: 4, marginTop: 2 }}
             label="Username"
             variant="standard"
             onChange={(e) =>
