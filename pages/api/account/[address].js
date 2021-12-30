@@ -14,7 +14,7 @@ export default async (req, res) => {
                 const account = await Account.find({ address: queryAddress })
 
                 if (account.length > 0) return res.status(200).json({ success: true, data: account })
-                else return res.status(404).json({ success: false, data: 'Account does not exist.' })
+                else return res.status(200).json({ success: false, data: 'Account does not exist.' })
             } catch (error) {
                 return res.status(400).json({ success: false, error: error.message })
             }
