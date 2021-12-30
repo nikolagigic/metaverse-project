@@ -18,6 +18,7 @@ export default async (req, res) => {
         
         case 'POST':
             try {
+                console.log('>>> req.body: ', req.body)
                 const account = await Account.create(req.body);
 
                 return res.status(201).json({success: true, data: account})

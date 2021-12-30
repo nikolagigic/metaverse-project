@@ -9,6 +9,8 @@ import { Grid, Link } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
 
+import AccountChip from "../AccountChip";
+
 import { StyledLinkComponent } from "../styled";
 
 const Box = styled(MUIBox)(({ theme }) => ({
@@ -56,14 +58,7 @@ const NavBar = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justifyContent="start">
-            <Button>
-              <Chip
-                sx={{ textTransform: "none" }}
-                label="0x12345678"
-                variant="outlined"
-                avatar={<Avatar src="/static/images/profile_avatar.jpg" />}
-              />
-            </Button>
+            <AccountChip />
           </Grid>
 
           <Grid container justifyContent={"center"}>
