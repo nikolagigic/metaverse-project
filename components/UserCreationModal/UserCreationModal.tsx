@@ -49,8 +49,6 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
   useEffect(() => {
     handleOpen();
     setFormDetails({ ...formDetails, address: accountAddress });
-
-    console.log(formDetails);
   }, [formDetails.avatar]);
 
   const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {

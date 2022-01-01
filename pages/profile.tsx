@@ -1,8 +1,22 @@
 import type { NextPage } from "next";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-import Image from "next/image";
-import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+import axios from "axios";
+import { create as ipfsHttpClient } from "ipfs-http-client";
+
+import {
+  Avatar,
+  Button,
+  Grid,
+  Box,
+  Tab,
+  Tabs,
+  TextField,
+  Typography,
+  Tooltip,
+  styled,
+} from "@mui/material";
 
 import NFTsContainer from "../components/NFTsContainer";
 import {
@@ -17,6 +31,9 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
+// @ts-ignore
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
@@ -41,7 +58,15 @@ const a11yProps = (index: number) => {
   };
 };
 
+const StyledAvatarButton = styled(Button)(({ theme }) => ({
+  "&:hover": {
+    backgroundColor: "#FFF",
+  },
+}));
+
 const Profile: NextPage = () => {
+  const router = useRouter();
+
   const [value, setValue] = useState(0);
   const [NFTs, setNFTs] = useState([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
@@ -50,8 +75,31 @@ const Profile: NextPage = () => {
 
   useEffect(() => {
     getAccountDetails(setAccountAddress, setUserDetails);
-    console.log(userDetails);
-  }, [accountAddress]);
+  }, [accountAddress, userDetails?.data.username]);
+
+  const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file, {
+        // @ts-ignore
+        progress: (prog: string) => console.log(`received: ${prog}`),
+      });
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      await axios.put(`http://localhost:3000/api/account/${accountAddress}`, {
+        avatar: url,
+      });
+
+      router.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onChangeUsername = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    await axios.put(`http://localhost:3000/api/account/${accountAddress}`, {
+      username: e.target.value,
+    });
+  };
 
   useEffect(() => {
     if (value === 0) loadCreatedNFTs(setNFTs, setLoadingState);
@@ -66,14 +114,23 @@ const Profile: NextPage = () => {
     <Grid container spacing={4} sx={{ padding: "27px 54px 0 54px" }}>
       <Grid item xs={3} display="flex" flexDirection={"column"}>
         <Grid item sx={{ margin: "auto" }}>
-          <Image
-            width={256}
-            height={256}
-            alt="profileImage"
-            src={
-              userDetails?.data.avatar || "/static/images/profile_avatar.jpg"
-            }
-          />
+          <Tooltip title="Change Profile Picture">
+            <StyledAvatarButton component="label">
+              <input
+                hidden
+                type="file"
+                name="avatar-image"
+                onChange={onChangeAvatar}
+              />
+              <Avatar
+                sx={{ width: 256, height: 256, cursor: "pointer" }}
+                src={
+                  userDetails?.data.avatar ||
+                  "/static/images/profile_avatar.jpg"
+                }
+              />
+            </StyledAvatarButton>
+          </Tooltip>
         </Grid>
         <Typography
           variant="h4"

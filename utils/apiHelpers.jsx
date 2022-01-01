@@ -25,9 +25,6 @@ export const getAccountDetails = async (setAccountAddress, setUserDetails) => {
     const { data } = await axios.get(
       `http://localhost:3000/api/account/${address}`
     );
-
-    console.log(">>> data: ", data);
-
     setAccountAddress(address);
     setUserDetails(data);
   } catch (error) {

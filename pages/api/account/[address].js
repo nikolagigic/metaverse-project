@@ -35,6 +35,8 @@ export default async (req, res) => {
           { ...queryParams }
         );
 
+        console.log(">>> account: ", account);
+
         if (account)
           return res.status(200).json({ success: true, data: account });
         else
@@ -42,6 +44,7 @@ export default async (req, res) => {
             .status(404)
             .json({ success: false, data: "Account does not exist." });
       } catch (error) {
+        console.error(error);
         return res.status(400).json({ success: false, error: error.message });
       }
 
