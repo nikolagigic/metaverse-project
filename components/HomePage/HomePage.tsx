@@ -20,6 +20,8 @@ const HomePage: NextPage = () => {
   useEffect(() => {
     loadMarketNFTs(setNFTs, setLoadingState, setPageCount, currentPage);
     getNikolaTokenValue();
+
+    console.log(NFTs);
   }, [currentPage]);
 
   useEffect(() => {

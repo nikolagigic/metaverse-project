@@ -1,5 +1,7 @@
 import { FC, useState, Dispatch, SetStateAction } from "react";
 
+import { useRouter } from "next/router";
+
 import { ChromePicker } from "react-color";
 
 import Box from "@mui/material/Box";
@@ -39,13 +41,7 @@ const BasicList: FC<StudioToolbarProps> = ({
   NFTDetails,
   setNFTDetails,
 }) => {
-  const [priceClientGets, setPriceClientGets] = useState("0");
-
-  const handlePriceChange = (value: string) => {
-    const parsedValue = parseFloat(value);
-    const calculatedValue = (parsedValue - parsedValue / 100).toString();
-    setPriceClientGets(calculatedValue);
-  };
+  const router = useRouter();
 
   return (
     <Box
@@ -92,15 +88,9 @@ const BasicList: FC<StudioToolbarProps> = ({
             label="Price"
             onChange={(e) => {
               const value = e.target.value;
-              handlePriceChange(value);
               setNFTDetails({ ...NFTDetails, addedPrice: value });
             }}
           />
-        </ListItem>
-        <ListItem>
-          <Typography color={"white"}>
-            You get: {priceClientGets} ETH
-          </Typography>
         </ListItem>
         <Divider />
         <ListItem>
@@ -119,7 +109,8 @@ const BasicList: FC<StudioToolbarProps> = ({
                 NFTDetails.description,
                 NFTDetails.addedPrice,
                 NFTDetails.modelURL,
-                backgroundColor
+                backgroundColor,
+                router
               );
             }}
             sx={{ margin: "auto" }}

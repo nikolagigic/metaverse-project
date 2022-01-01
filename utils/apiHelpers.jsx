@@ -8,6 +8,7 @@ import { nftaddress, nftmarketaddress, tokenaddress } from "../config";
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
 import Market from "../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
 import NikolaToken from "../artifacts/contracts/NikolaToken.sol/NikolaToken.json";
+import { Navigate } from "react-router-dom";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 // const provider = new ethers.providers.JsonRpcProvider(
@@ -223,7 +224,7 @@ export const loadMyNFTs = async (setNFTs, setLoadingState) => {
   setLoadingState("loaded");
 };
 
-export const createNFT = async (url, addedPrice) => {
+export const createNFT = async (url, addedPrice, router) => {
   // before: createSale
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
@@ -248,6 +249,8 @@ export const createNFT = async (url, addedPrice) => {
     value: listingPrice,
   });
   await transaction.wait();
+
+  router.push("/profile");
 };
 
 export const createNFTObject = async (
@@ -255,7 +258,8 @@ export const createNFTObject = async (
   description,
   addedPrice,
   modelURL,
-  backgroundColor
+  backgroundColor,
+  router
 ) => {
   if (!name || !description || !addedPrice || !modelURL || !backgroundColor)
     return;
@@ -270,7 +274,7 @@ export const createNFTObject = async (
   try {
     const added = await client.add(data);
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    createNFT(url, addedPrice);
+    createNFT(url, addedPrice, router);
   } catch (error) {
     console.error("Error uploading file: ", error);
   }

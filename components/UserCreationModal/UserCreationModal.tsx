@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
+import { useRouter } from "next/router";
+
 import axios from "axios";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 
@@ -33,6 +35,8 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
   accountAddress,
   setOpenModal,
 }) => {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [formDetails, setFormDetails] = useState({
     username: "",
@@ -65,8 +69,10 @@ const UserCreationModal: FC<UserCreationModalProps> = ({
     }
   };
 
-  const handleCreate = () => {
-    axios.post("http://localhost:3000/api/account", formDetails);
+  const handleCreate = async () => {
+    await axios.post("http://localhost:3000/api/account", formDetails);
+
+    router.reload();
   };
 
   return (
