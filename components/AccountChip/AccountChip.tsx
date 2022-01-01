@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
+import { useRouter } from "next/router";
+
 import { Button, Chip, Avatar } from "@mui/material";
 
 import UserCreationModal from "../UserCreationModal";
@@ -9,6 +11,8 @@ import { getAccountDetails } from "../../utils/apiHelpers";
 import { UserDetailsProps } from "../../types/types";
 
 const AccountChip: FC = () => {
+  const router = useRouter();
+
   const [accountAddress, setAccountAddress] = useState(null);
   const [userDetails, setUserDetails] = useState<UserDetailsProps>();
   const [openModal, setOpenModal] = useState(false);
@@ -21,6 +25,11 @@ const AccountChip: FC = () => {
   }, [accountAddress, userDetails?.success]);
 
   const handleButtonClick = () => {
+    if (userRegistered) {
+      router.push("/profile");
+      return;
+    }
+
     setOpenModal(!userRegistered);
   };
 

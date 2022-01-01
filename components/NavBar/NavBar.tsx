@@ -63,9 +63,9 @@ const NavBar = () => {
 
           <Grid container justifyContent={"center"}>
             <StyledLinkComponent location="/">MARKETPLACE</StyledLinkComponent>
-            <StyledLinkComponent location="/profile">
+            {/* <StyledLinkComponent location="/profile">
               PROFILE
-            </StyledLinkComponent>
+            </StyledLinkComponent> */}
             <StyledLinkComponent location="/studio">STUDIO</StyledLinkComponent>
           </Grid>
           <Grid container justifyContent="end">
