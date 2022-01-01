@@ -33,23 +33,9 @@ const AccountChip: FC = () => {
         />
       )}
       <Button onClick={handleButtonClick}>
-        {userRegistered ? (
-          <Chip
-            sx={{ textTransform: "none" }}
-            label={accountAddress}
-            variant="outlined"
-            avatar={
-              <Avatar
-                src={
-                  userDetails?.data.avatar ||
-                  "/static/images/profile_avatar.jpg"
-                }
-              />
-            }
-          />
-        ) : (
-          <Avatar src="/static/images/profile_avatar.jpg" />
-        )}
+        <Avatar
+          src={userDetails?.data.avatar || "/static/images/profile_avatar.jpg"}
+        />
       </Button>
     </>
   );
