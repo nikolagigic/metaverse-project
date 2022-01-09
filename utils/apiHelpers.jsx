@@ -77,8 +77,6 @@ export const loadMarketNFTs = async (
     const pageCount = parseInt(await marketContract.getPageCount(address));
     setPageCount(pageCount);
 
-    console.log(">>> pageCount: ", pageCount);
-
     if (page > pageCount) {
       setNFTs([]);
       return;

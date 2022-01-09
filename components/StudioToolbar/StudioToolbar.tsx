@@ -43,6 +43,21 @@ const BasicList: FC<StudioToolbarProps> = ({
 }) => {
   const router = useRouter();
 
+  const helperTextValue = "This field is required";
+
+  const [nameValidator, setNameValidator] = useState({
+    error: false,
+    helperText: " ",
+  });
+  const [descriptionValidator, setDescriptionValidator] = useState({
+    error: false,
+    helperText: " ",
+  });
+  const [priceValidator, setPriceValidator] = useState({
+    error: false,
+    helperText: " ",
+  });
+
   return (
     <Box
       sx={{
@@ -56,29 +71,50 @@ const BasicList: FC<StudioToolbarProps> = ({
       <List>
         <ListItem>
           <StyledInput
+            required
+            error={nameValidator.error}
+            helperText={nameValidator.helperText}
             label="Name"
             variant="standard"
             inputProps={{ maxLength: 12 }}
-            onChange={(e) =>
-              setNFTDetails({ ...NFTDetails, name: e.target.value })
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (value === "")
+                setNameValidator({ error: true, helperText: helperTextValue });
+              else setNameValidator({ error: false, helperText: " " });
+
+              setNFTDetails({ ...NFTDetails, name: e.target.value });
+            }}
           />
         </ListItem>
         <ListItem>
           <TextField
+            required
             multiline
+            error={descriptionValidator.error}
+            helperText={descriptionValidator.helperText}
             sx={{ width: "100%" }}
             label="Description"
             variant="outlined"
             rows={16}
             inputProps={{ maxLength: 1024 }}
-            onChange={(e) =>
-              setNFTDetails({ ...NFTDetails, description: e.target.value })
-            }
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (value === "")
+                setNameValidator({ error: true, helperText: helperTextValue });
+              else setNameValidator({ error: false, helperText: " " });
+
+              setNFTDetails({ ...NFTDetails, description: e.target.value });
+            }}
           />
         </ListItem>
         <ListItem>
           <TextField
+            required
+            error={priceValidator.error}
+            helperText={priceValidator.helperText}
             id={"nft-price"}
             sx={{ margin: "auto" }}
             InputProps={{
@@ -88,6 +124,11 @@ const BasicList: FC<StudioToolbarProps> = ({
             label="Price"
             onChange={(e) => {
               const value = e.target.value;
+
+              if (value === "")
+                setNameValidator({ error: true, helperText: helperTextValue });
+              else setNameValidator({ error: false, helperText: " " });
+
               setNFTDetails({ ...NFTDetails, addedPrice: value });
             }}
           />
@@ -104,6 +145,16 @@ const BasicList: FC<StudioToolbarProps> = ({
         <ListItem>
           <Button
             onClick={() => {
+              NFTDetails.name === "" &&
+                setNameValidator({ error: true, helperText: helperTextValue });
+              NFTDetails.description === "" &&
+                setDescriptionValidator({
+                  error: true,
+                  helperText: helperTextValue,
+                });
+              NFTDetails.addedPrice === "" &&
+                setPriceValidator({ error: true, helperText: helperTextValue });
+
               createNFTObject(
                 NFTDetails.name,
                 NFTDetails.description,
