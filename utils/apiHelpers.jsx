@@ -77,6 +77,8 @@ export const loadMarketNFTs = async (
     const pageCount = parseInt(await marketContract.getPageCount(address));
     setPageCount(pageCount);
 
+    console.log(">>> pageCount: ", pageCount);
+
     if (page > pageCount) {
       setNFTs([]);
       return;
@@ -250,7 +252,7 @@ export const createNFT = async (url, addedPrice, router) => {
   });
   await transaction.wait();
 
-  router.push("/profile");
+  // router.push("/profile");
 };
 
 export const createNFTObject = async (

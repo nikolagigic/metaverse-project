@@ -13,7 +13,7 @@ contract NFTMarket is ReentrancyGuard {
 
   address payable owner;
   address payable feeAccountAddress =
-    payable(0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199);
+    payable(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC);
 
   constructor() {
     owner = payable(msg.sender);
@@ -111,7 +111,7 @@ contract NFTMarket is ReentrancyGuard {
   function getPageCount(address signerAddress) public view returns (uint256) {
     uint256 totalItemCount = _itemIDs.current();
     uint256 itemCount = 0;
-    uint256 itemsPerPage = 12;
+    uint256 itemsPerPage = 2;
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (
@@ -124,6 +124,9 @@ contract NFTMarket is ReentrancyGuard {
     }
 
     uint256 pageCount = itemCount / itemsPerPage;
+
+    if (itemCount % itemsPerPage != 0) pageCount += 1;
+
 
     return pageCount;
   }
@@ -138,7 +141,7 @@ contract NFTMarket is ReentrancyGuard {
     uint256 totalItemCount = _itemIDs.current();
     uint256 itemCount = 0;
     uint256 currentIndex = 0;
-    uint256 itemsPerPage = 12;
+    uint256 itemsPerPage = 2;
 
     for (uint256 i = 0; i < totalItemCount; i++) {
       if (
@@ -152,24 +155,34 @@ contract NFTMarket is ReentrancyGuard {
 
     uint256 pageCount = itemCount / itemsPerPage;
 
-    require(page <= pageCount, "Invalid Page");
+    if (pageCount < itemCount * itemsPerPage) pageCount += 1;
+
+    require(page <= pageCount, "That page does not exist.");
 
     uint256 startIndex = 0;
     uint256 endIndex = 0;
+    uint256 itemsArraySize = 0;
 
-    if (totalItemCount > 0) {
+    if (itemCount > 0) {
       if (page == 1) {
-        if (itemsPerPage < totalItemCount) endIndex = itemsPerPage;
-        else endIndex = totalItemCount;
+        if (itemsPerPage < itemCount) {
+          endIndex = itemsPerPage;
+          itemsArraySize = itemsPerPage;
+        } else {
+          endIndex = itemCount;
+          itemsArraySize = itemCount;
+        }
       } else {
         startIndex = itemsPerPage * (page - 1);
         endIndex = itemsPerPage * page;
 
-        if (endIndex > totalItemCount) endIndex = totalItemCount;
+        if (endIndex > itemCount) endIndex = itemCount;
+
+        itemsArraySize = endIndex - startIndex;
       }
     } else itemsPerPage = 0;
 
-    MarketItem[] memory items = new MarketItem[](itemsPerPage);
+    MarketItem[] memory items = new MarketItem[](itemsArraySize);
     for (uint256 i = startIndex; i < endIndex; i++) {
       console.log(i);
       if (
