@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
-import { Avatar, Box, Chip, Tooltip } from "@mui/material";
+import { Avatar, Chip, Tooltip } from "@mui/material";
 
 import { shortenAddress } from "../../utils/helpers";
 
@@ -11,10 +11,6 @@ interface AccountChipProps {
 
 const AccountChip: FC<AccountChipProps> = ({ avatarImage, seller }) => {
   const [tooltipText, setTooltipText] = useState("Click to Copy");
-
-  //   useEffect(() => {
-  //     console.log(">>> tooltipText: ", tooltipText);
-  //   }, [tooltipText]);
 
   return (
     <Tooltip
