@@ -102,6 +102,7 @@ const Profile: NextPage = () => {
   };
 
   useEffect(() => {
+    setLoadingState("not-loaded");
     if (value === 0) loadCreatedNFTs(setNFTs, setLoadingState);
     else if (value === 1) loadMyNFTs(setNFTs, setLoadingState);
   }, [value]);

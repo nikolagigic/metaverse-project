@@ -23,6 +23,8 @@ const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
 
   console.log(">>> NFTs: ", NFTs);
 
+  if (loadingState === "not-loaded") return <StyledNoItemsComponent />;
+
   return (
     <Grid container display={"flex"} justifyContent={"center"}>
       {NFTs.map((NFT, i) => (
