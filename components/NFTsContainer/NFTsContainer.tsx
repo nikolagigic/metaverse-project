@@ -4,7 +4,10 @@ import { Grid } from "@mui/material";
 
 import NFTItem from "../NFTItem";
 
-import { StyledNoItemsComponent } from "../styled";
+import {
+  StyledNoItemsComponent,
+  StyledCircularProgressComponent,
+} from "../styled";
 
 interface NFTProps {
   itemID: number;
@@ -23,7 +26,7 @@ const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
 
   console.log(">>> NFTs: ", NFTs);
 
-  if (loadingState === "not-loaded") return <StyledNoItemsComponent />;
+  if (loadingState === "not-loaded") return <StyledCircularProgressComponent />;
 
   return (
     <Grid container display={"flex"} justifyContent={"center"}>
