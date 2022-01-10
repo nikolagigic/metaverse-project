@@ -24,7 +24,7 @@ const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
   console.log(">>> NFTs: ", NFTs);
 
   return (
-    <Grid container spacing={4} display={"flex"} justifyContent={"center"}>
+    <Grid container display={"flex"} justifyContent={"center"}>
       {NFTs.map((NFT, i) => (
         <NFTItem key={i} {...NFT} />
       ))}

@@ -113,7 +113,7 @@ const Profile: NextPage = () => {
   return (
     <Grid container spacing={4} sx={{ padding: "27px 54px 0 54px" }}>
       <Grid item xs={3} display="flex" flexDirection={"column"}>
-        <Grid item sx={{ margin: "auto" }}>
+        <Grid item display={"flex"} justifyContent={"center"}>
           <Tooltip title="Change Profile Picture">
             <StyledAvatarButton component="label">
               <input
