@@ -115,6 +115,7 @@ const Profile: NextPage = () => {
       <Grid item xs={3} display="flex" flexDirection={"column"}>
         <Grid item display={"flex"} justifyContent={"center"}>
           <Tooltip title="Change Profile Picture">
+            {/* @ts-ignore */}
             <StyledAvatarButton component="label">
               <input
                 hidden
