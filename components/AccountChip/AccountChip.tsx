@@ -1,52 +1,41 @@
 import { FC, useEffect, useState } from "react";
 
-import { useRouter } from "next/router";
+import { Avatar, Box, Chip, Tooltip } from "@mui/material";
 
-import { Button, Chip, Avatar } from "@mui/material";
+import { shortenAddress } from "../../utils/helpers";
 
-import UserCreationModal from "../UserCreationModal";
+interface AccountChipProps {
+  avatarImage: string;
+  seller: string;
+}
 
-import { getAccountDetails } from "../../utils/apiHelpers";
+const AccountChip: FC<AccountChipProps> = ({ avatarImage, seller }) => {
+  const [tooltipText, setTooltipText] = useState("Click to Copy");
 
-import { UserDetailsProps } from "../../types/types";
-
-const AccountChip: FC = () => {
-  const router = useRouter();
-
-  const [accountAddress, setAccountAddress] = useState(null);
-  const [userDetails, setUserDetails] = useState<UserDetailsProps>();
-  const [openModal, setOpenModal] = useState(false);
-  const [userRegistered, setUserRegistered] = useState(false);
-
-  useEffect(() => {
-    getAccountDetails(setAccountAddress, setUserDetails);
-
-    setUserRegistered(userDetails?.success);
-  }, [accountAddress, userDetails?.success]);
-
-  const handleButtonClick = () => {
-    if (userRegistered) {
-      router.push("/profile");
-      return;
-    }
-
-    setOpenModal(!userRegistered);
-  };
+  //   useEffect(() => {
+  //     console.log(">>> tooltipText: ", tooltipText);
+  //   }, [tooltipText]);
 
   return (
-    <>
-      {openModal && (
-        <UserCreationModal
-          accountAddress={accountAddress}
-          setOpenModal={setOpenModal}
-        />
-      )}
-      <Button onClick={handleButtonClick}>
-        <Avatar
-          src={userDetails?.data.avatar || "/static/images/profile_avatar.jpg"}
-        />
-      </Button>
-    </>
+    <Tooltip
+      title={tooltipText}
+      placement="top"
+      onClose={() => {
+        setTimeout(() => {
+          setTooltipText("Click to Copy");
+        }, 200);
+      }}
+    >
+      <Chip
+        sx={{ marginTop: 2 }}
+        label={shortenAddress(seller)}
+        avatar={<Avatar src={avatarImage} />}
+        onClick={() => {
+          setTooltipText("Copied!");
+          navigator.clipboard.writeText(seller);
+        }}
+      />
+    </Tooltip>
   );
 };
 

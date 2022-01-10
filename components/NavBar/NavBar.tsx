@@ -9,7 +9,7 @@ import { Grid, Link } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
 
-import AccountChip from "../AccountChip";
+import AccountProfileButton from "../AccountProfileButton";
 
 import { StyledLinkComponent } from "../styled";
 
@@ -58,7 +58,7 @@ const NavBar = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justifyContent="start">
-            <AccountChip />
+            <AccountProfileButton />
           </Grid>
 
           <Grid container justifyContent={"center"}>

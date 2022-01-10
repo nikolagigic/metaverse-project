@@ -36,3 +36,9 @@ export const cloneModel = (source) => {
 
   return clone;
 };
+
+export const shortenAddress = (address) => {
+  const addressStart = address.slice(0, 6);
+  const addressEnd = address.slice(address.length - 4, address.length);
+  return `${addressStart}...${addressEnd}`;
+};

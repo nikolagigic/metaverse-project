@@ -8,6 +8,8 @@ import { StyledNoItemsComponent } from "../styled";
 
 interface NFTProps {
   itemID: number;
+  creator: string;
+  seller: string;
   modelPath: "string";
 }
 
@@ -18,6 +20,8 @@ interface Props {
 
 const NFTsContainer: FC<Props> = ({ NFTs, loadingState }) => {
   if (NFTs.length === 0) return <StyledNoItemsComponent />;
+
+  console.log(">>> NFTs: ", NFTs);
 
   return (
     <Grid container spacing={4} display={"flex"} justifyContent={"center"}>

@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import axios from "axios";
 
 import { useRouter } from "next/router";
 
@@ -9,6 +10,7 @@ import { Grid, Box, Card, CardContent, Typography } from "@mui/material";
 import { descriptionLength } from "./constants";
 
 import NFTTokenWrapper from "../TokenRenderer/NFTTokenWrapper";
+import AccountChip from "../AccountChip";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: 300,
@@ -22,6 +24,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 interface NFTItemProps {
   itemID: number;
+  creator: string;
+  seller: string;
   name?: string;
   description?: string;
   modelPath?: string;
@@ -30,11 +34,15 @@ interface NFTItemProps {
 
 const NFTItem: FC<NFTItemProps> = ({
   itemID,
+  creator,
+  seller,
   name,
   description,
   modelPath,
   backgroundColor,
 }) => {
+  const [sellerAvatar, setSellerAvatar] = useState("");
+
   const formattedDescription =
     description.length > descriptionLength
       ? `${description.slice(0, descriptionLength + 1)}...`
@@ -45,6 +53,12 @@ const NFTItem: FC<NFTItemProps> = ({
   const handleClickOnNameOrDescription = () => {
     router.push(`/token/${itemID}`);
   };
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/api/account/${seller}`).then((data) => {
+      setSellerAvatar(data.data.data.avatar);
+    });
+  }, [seller]);
 
   return (
     <Grid item lg={3} md={6} sm={12} xs={12}>
@@ -64,14 +78,10 @@ const NFTItem: FC<NFTItemProps> = ({
           >
             {name}
           </Typography>
-          <Typography
-            style={{ cursor: "pointer" }}
-            variant="body2"
-            color="text.secondary"
-            onClick={handleClickOnNameOrDescription}
-          >
+          <Typography variant="body2" color="text.secondary">
             {formattedDescription}
           </Typography>
+          <AccountChip avatarImage={sellerAvatar} seller={seller} />
         </CardContent>
       </StyledCard>
     </Grid>
